@@ -120,6 +120,7 @@ const gameBoard = document.getElementById('gameBoard');
 const outlawName = document.querySelectorAll('#outlawName');
 const quickdraw = document.getElementById('quickdraw');
 const toughness = document.getElementById('toughness');
+const duelModal = document.getElementById('duelModal');
 
 // changeable bad guy reference
 let undefeatedBadGuy = document.querySelector('.badGuy');
@@ -526,7 +527,6 @@ function cloneSVGWithUniqueIDs(originalSVG) {
 function prepareDuel(badGuySvg) {
   const outlawContainer = document.getElementById('outlawContainer');
   const defeatedOutlawContainer = document.getElementById('defeatedOutlawContainer');
-  const duelModal = document.getElementById('duelModal');
 
   // Clone the bad guy SVG
   const clonedOutlaw = cloneSVGWithUniqueIDs(badGuySvg);
@@ -601,9 +601,6 @@ function quickdrawToScore(time, minTime = 10000, maxTime = 35000, minScore = 1, 
 }
 
 function animateOutlaw(clonedSvg) {
-  const modalContent = document.querySelector('#duelModal .modal-content');
-  const modalRect = modalContent.getBoundingClientRect();
-
 	outlawName.forEach((name) => {
 		name.innerText = clonedSvg.dataset.name;
 	});
@@ -622,7 +619,6 @@ function animateOutlaw(clonedSvg) {
 
 
 function closeModal() {
-  const duelModal = document.getElementById('duelModal');
   const outlawContainer = document.getElementById('outlawContainer');
   
   // Get the cloned SVG
@@ -658,6 +654,7 @@ function closeWinModal() {
 		// TODO: get a badge, add it to an array stored in localStorage
 		confetti(document.querySelector('#confettiHolder'));
 		document.getElementById('dayWinModal').classList.add('visible');
+		winMedal();
 	}
 }
 
@@ -896,7 +893,6 @@ function handleShapeClick(e) {
 function showWinScreen(){
 	document.getElementById('winModal').classList.add('visible');
 	document.getElementById('backToTrailButton2').style.visibility = 'hidden';
-	winMedal();
 }
 
 function allFound() {
@@ -1393,6 +1389,8 @@ class VisitTracker {
 const tracker = new VisitTracker();
 const slideOutMenu = document.getElementById('slideOutMenu');
 const menuOverlay = document.getElementById('menuOverlay');
+const startButton = document.getElementById('startButton');
+const instructions = document.getElementById('instructions');
 const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
 const closeMenuBtn = document.getElementById('closeMenuBtn');
 const achieveMedalBtn = document.getElementById('achieveMedalBtn');
@@ -1531,14 +1529,40 @@ function updateStreakBadges(currentStreak, longestStreak) {
 	}
 }
 
+function checkBlunkertonInstructions() {
+  const value = localStorage.getItem('blunkerton-instructions');
+  
+  if (value === 'false') {
+    const linkElement = document.getElementById('blunkerton-link');
+    if (linkElement) {
+      linkElement.style.display = 'none';
+      // Or alternatively: linkElement.hidden = true;
+    }
+  }
+  // If value doesn't exist (null) or is 'true', do nothing
+}
 
+// document.getElementById('blunkerton-link').addEventListener('click', function(e) {
+//   e.preventDefault();
+//   localStorage.setItem('blunkerton-instructions', 'false');
+// });
+
+function hideInstructions() {
+	document.querySelector('#instructionsModal').classList.add('hidden');
+}
+function showInstructions() {
+	document.querySelector('#instructionsModal').classList.remove('hidden');
+	
+}
 hamburgerMenuBtn.addEventListener('click', toggleMenu);
 closeMenuBtn.addEventListener('click', toggleMenu);
 menuOverlay.addEventListener('click', toggleMenu);
-
+startButton.addEventListener('click', hideInstructions);
+instructions.addEventListener('click', showInstructions);
 // Initialize with default values on page load
 document.addEventListener('DOMContentLoaded', () => {
 	const stats = populateStats();
 	console.log(stats);
 	updateStreakBadges(stats.currentStreak, stats.longestStreak); // You can replace with actual initial values from local storage/data
+	// checkBlunkertonInstructions();
 });
