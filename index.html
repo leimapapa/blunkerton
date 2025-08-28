@@ -1,412 +1,468 @@
 <!DOCTYPE html>
-<html lang="en" >
-	<head>
-		<meta charset="UTF-8">
-		<title>Blunkerton™</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4gPGRlZnM+IDxmaWx0ZXIgaWQ9ImJsdXIiIHg9Ii0yMDAlIiB5PSItMjAwJSIgd2lkdGg9IjEwMDAlIiBoZWlnaHQ9IjEwMDAlIj4gPGZlR2F1c3NpYW5CbHVyIGluPSJTb3VyY2VHcmFwaGljIiBzdGREZXZpYXRpb249IjEiPjwvZmVHYXVzc2lhbkJsdXI+IDwvZmlsdGVyPiA8L2RlZnM+IDxnIGNsYXNzPSJiYWRHdXlCb2R5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIC0xMCkiPiA8ZWxsaXBzZSBjbGFzcz0ic2hhZG93IiBjeD0iNTAiIGN5PSI5MCIgcng9IjI1IiByeT0iMyIgZmlsbD0icmdiYSgwLDAsMCwwLjQpIiBmaWx0ZXI9InVybCgjYmx1cikiPjwvZWxsaXBzZT4gPGcgY2xhc3M9Imd1eUJvZHkiPiA8IS0tIHNoaXJ0IC0tPiA8cGF0aCBjbGFzcz0ic2hpcnQiIGQ9Ik0gNDUgNDkgUSA1MCA1MCA1NSA0OSBRIDYxIDUyIDY1IDUzIFEgNjggNDggNzEgNTEgUSA3NCA1NCA2OSA1OSBRIDY3IDYxIDYwIDYxIFYgNjQgSCAzOSBWIDU5IFEgMzcgNTcgMzQgNTcgUSAzMiA1NyAzMCA1OSBRIDI4IDYxIDI2IDU5IFEgMjUgNTcgMjYgNTUgUSAzMyA0NCA0NSA0OSIgZmlsbD0iZmlyZWJyaWNrIiBzdHJva2U9IiMwMDAiPiA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJkIiB2YWx1ZXM9Ik0gNDUgNDkgUSA1MCA1MCA1NSA0OSBRIDYxIDUyIDY1IDUzIFEgNjggNDggNzEgNTEgUSA3NCA1NCA2OSA1OSBRIDY3IDYxIDYwIDYxIFYgNjQgSCAzOSBWIDU5IFEgMzcgNTcgMzQgNTcgUSAzMiA1NyAzMCA1OSBRIDI4IDYxIDI2IDU5IFEgMjUgNTcgMjYgNTUgUSAzMyA0NCA0NSA0OTsgTSA0NSA0OSBRIDUwIDUwIDU1IDQ5IFEgNjEgNTIgNjUgNTMgUSA2OCA0OCA3MSA1MSBRIDc0IDU0IDY5IDU5IFEgNjcgNjEgNjAgNjEgViA2NCBIIDM5IFYgNTkgUSAzNyA1NyAzNSA1NyBRIDMzIDU3IDMyIDU5IFEgMzEgNjIgMjggNjAgUSAyNiA1OSAyOCA1NSBRIDMzIDQ0IDQ1IDQ5OyBNIDQ1IDQ5IFEgNTAgNTAgNTUgNDkgUSA2MSA1MiA2NSA1MyBRIDY4IDQ4IDcxIDUxIFEgNzQgNTQgNjkgNTkgUSA2NyA2MSA2MCA2MSBWIDY0IEggMzkgViA1OSBRIDM3IDU3IDM0IDU3IFEgMzIgNTcgMzAgNTkgUSAyOCA2MSAyNiA1OSBRIDI1IDU3IDI2IDU1IFEgMzMgNDQgNDUgNDkiIGR1cj0iNXMiIGJlZ2luPSIwcyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiPjwvYW5pbWF0ZT4gPC9wYXRoPiA8IS0tIGlubmVyIHNoaXJ0IC0tPiA8cGF0aCBjbGFzcz0iaW5uZXJTaGlydCIgZD0iTSA0OSA1MCBRIDQ5IDUzIDQ3IDY0IEggNTMgUSA1MSA1MyA1MSA1MCBaIiBmaWxsPSJmaXJlYnJpY2siPjwvcGF0aD4gPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzMzIiBzdHJva2Utd2lkdGg9IjIuNSIgZD0iTSA0NiA2NCBRIDQ4IDU0IDQ4IDQ5IE0gNTQgNjQgUSA1MiA1NCA1MiA0OSI+PC9wYXRoPiA8IS0tIGNvbGxhciAtLT4gPHBhdGggZD0iTSA0NSA1MSBWIDQ4IFEgNTAgNTAgNTUgNDggViA1MiBMIDUwIDUwIEggNTAgWiIgZmlsbD0iZmlyZWJyaWNrIiBmaWx0ZXI9ImJyaWdodG5lc3MoMTQwJSkiIHN0cm9rZT0iIzAwMCI+PC9wYXRoPiA8IS0tIHBhbnRzIC0tPiA8cGF0aCBkPSJNIDQwIDY5IFEgNTAgNjcgNTggNjkgUSA2MiA3NiA2MiA4NiBRIDU5IDg2IDU2IDg4IFEgNTMgNzUgNDkgNzUgUSA0NCA3NSA0MSA4NyBRIDM4IDg2IDM1IDg2IFEgMzYgNzYgNDAgNjkiIGZpbGw9IiM1NTUiIHN0cm9rZT0iIzAwMCI+PC9wYXRoPiA8IS0tIGJvb3RzIC0tPiA8cGF0aCBkPSJNIDMzIDkwIFEgMzMgODkgMzUgODYgUSAzNiA4NCA0MSA4NyBWIDkwIFogTSA2NCA5MCBRIDY0IDg5IDYyIDg2IFEgNjAgODQgNTYgODggViA5MCBaIiBmaWxsPSIjMTExIiBzdHJva2U9IiMwMDAiPjwvcGF0aD4gPCEtLSBiZWx0IC0tPiA8cGF0aCBkPSJNIDM5IDY0IEggNjAgQyA2MyA2OCA1OSA3MCA1OCA2OSBRIDUwIDY3IDQwIDY5IEMgMzkgNzAgMzYgNjcgMzkgNjQiIGZpbGw9ImJyb3duIiBzdHJva2U9IiMwMDAiPjwvcGF0aD4gPCEtLSBiZWx0IGJ1Y2tsZSAtLT4gPHJlY3QgeD0iNDYiIHk9IjYyLjUiIGhlaWdodD0iNyIgd2lkdGg9IjciIHJ4PSIxIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iNCI+PC9yZWN0PiA8cmVjdCB4PSI0NiIgeT0iNjIuNSIgaGVpZ2h0PSI3IiB3aWR0aD0iNyIgcng9IjEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iZ29sZGVucm9kIiBzdHJva2Utd2lkdGg9IjIiPjwvcmVjdD4gPCEtLSBoYXQgLS0+IDxwYXRoIGNsYXNzPSJoYXRCcmltIiBkPSJNIDUwIDQwIFEgNjggNDIgNzIgMzQgUSA3NSAyOCA2NyAyNyBRIDUwIDI4IDMzIDI3IFEgMjUgMjggMjggMzUgUSAzMSA0MSA1MCA0MHoiIGZpbGw9IiMwMDAiIHN0cm9rZT0iIzAwMCI+PC9wYXRoPiA8IS0tIGhlYWQgLS0+IDxwYXRoIGNsYXNzPSJoZWFkIHNraW4iIGQ9Ik0gMzggMzggQSAxIDEgMCAwIDAgNjIgMzggQyA2MiAzMyA2MCAyNyA1MCAyNyBDIDQxIDI3IDM4IDMzIDM4IDM4eiIgZmlsbD0idGFuIiBzdHJva2U9IiMwMDAiPjwvcGF0aD4gPCEtLSBleWVzIC0tPiA8Y2lyY2xlIGNsYXNzPSJleWVMIiBjeD0iNDYiIGN5PSIzOSIgcj0iMiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0iI2ZmZiI+PC9jaXJjbGU+IDxjaXJjbGUgY2xhc3M9ImV5ZVIiIGN4PSI1NCIgY3k9IjM5IiByPSIyIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSIjZmZmIj48L2NpcmNsZT4gPCEtLSBwdXBpbHMgLS0+IDxjaXJjbGUgY2xhc3M9InB1cGlsTCIgY3g9IjQ2IiBjeT0iMzkiIHI9IjAuNSIgZmlsbD0iIzAwMCI+PC9jaXJjbGU+IDxjaXJjbGUgY2xhc3M9InB1cGlsUiIgY3g9IjU0IiBjeT0iMzkiIHI9IjAuNSIgZmlsbD0iIzAwMCI+PC9jaXJjbGU+IDwhLS0gYnJvd3MgLS0+IDxwYXRoIGNsYXNzPSJicm93cyIgZD0iTTQyIDM0IGwgNy41IDMgdjIgbCAtNyAtMiBaTTU4IDM0IGwgLTcuNSAzIHYyIGwgNyAtMloiIGZpbGw9IiMwMDAiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIwLjMiPjwvcGF0aD4gPCEtLSBleWVwYXRjaCAtLT4gPHBhdGggY2xhc3M9ImV5ZXBhdGNoIiBkPSJNIDYyIDM5IEggNTYgViAzOSBBIDEgMSAwIDAgMSA1MC41IDM5IEwgNDAgMzIgTCA0MSAzMCBMIDUxIDM3IEwgNjIgMzdaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwIj48L3BhdGg+IDwhLS0gbW91dGggLS0+IDxwYXRoIGNsYXNzPSJtb3V0aCIgZD0iTSA0OSA0MSBBIDEgMSAwIDAgMCA1MSA0MSIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDAwIj48L3BhdGg+IDxwYXRoIGNsYXNzPSJtb3VzdGFjaGUiIGQ9Ik0gNDkgNDMgQSAxIDEgMCAwIDAgNDggNDAgQyA0NiA0MSA0NyA0MyA0MiA0MiBRIDQ1IDQ1IDQ5IDQzIFogTSA1MSA0MyBBIDEgMSAwIDAgMSA1MiA0MCBDIDU0IDQxIDUzIDQzIDU4IDQyIFEgNTUgNDUgNTEgNDMgWiIgZmlsbD0iIzAwMCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjAuMyIgb3BhY2l0eT0iMSI+PC9wYXRoPiA8cGF0aCBjbGFzcz0iYmVhcmQiIGQ9Ik0gNDkgNDkgQSAxIDEgMCAwIDEgNTEgNDkgQyA1MSA1MCA1MCA1MSA1MCA1MiBDIDUwIDUxIDQ5IDUwIDQ5IDQ5IFoiIGZpbGw9IiMwMDAiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIwLjMiIG9wYWNpdHk9IjAiPjwvcGF0aD4gPCEtLSBoYXQgMiAtLT4gPHBhdGggY2xhc3M9ImhhdFRvcCIgZD0iTSAzNiAyOCBRIDUwIDI5IDYzIDI4IEMgNjMgMjYgNjIgMjUgNjAgMjQgUSA1MCAyMSA0MCAyNCBDIDM3IDI1IDM2IDI2IDM2IDI4WiIgZmlsbD0iIzAwMCIgZmlsdGVyPSJpbnZlcnQoMTAlKSIgc3Ryb2tlPSIjMDAwIj48L3BhdGg+IDxwYXRoIGNsYXNzPSJoYXRCcmltMiIgZD0iTSAzNyAzMyBRIDUwIDI5IDYzIDMzIEEgMSAxIDAgMCAwIDY3IDI3IFEgNTAgMjggMzMgMjcgQSAxIDEgMCAwIDAgMzcgMzNaIiBmaWxsPSIjMDAwIj48L3BhdGg+IDxwYXRoIGNsYXNzPSJoYXRCcmltMlN0cm9rZSIgZD0iTSA2NyAyNyBRIDUwIDI4IDMzIDI3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiPjwvcGF0aD4gPCEtLSBndW4gLS0+IDxlbGxpcHNlIGN4PSIzNyIgY3k9IjY4IiByeD0iMS41IiByeT0iNCIgZmlsbD0iIzY2NiIgc3Ryb2tlPSIjMDAwIj48L2VsbGlwc2U+IDxlbGxpcHNlIGN4PSIzNyIgY3k9IjY4IiByeD0iMi41IiByeT0iMi41IiBmaWxsPSJzaWx2ZXIiIHN0cm9rZT0iIzAwMCI+PC9lbGxpcHNlPiA8ZWxsaXBzZSBjeD0iMzciIGN5PSI3MiIgcng9IjIuNSIgcnk9IjUiIGZpbGw9ImJyb3duIiBzdHJva2U9IiMwMDAiPjwvZWxsaXBzZT4gPCEtLSBoYW5kcyAtLT4gPGNpcmNsZSBjbGFzcz0ic2tpbiIgY3g9IjMwIiBjeT0iNjIiIHI9IjQiIGZpbGw9InRhbiIgc3Ryb2tlPSIjMDAwIj4gPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iY3giIHZhbHVlcz0iMjk7IDMxLjU7IDI5IiBkdXI9IjVzIiBiZWdpbj0iLTE5MzltcyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiPjwvYW5pbWF0ZT4gPC9jaXJjbGU+IDxjaXJjbGUgY2xhc3M9InNraW4iIGN4PSI3MCIgY3k9IjUyIiByPSI0IiBmaWxsPSJ0YW4iIHN0cm9rZT0iIzAwMCI+PC9jaXJjbGU+IDwvZz4gPC9nPiA8L3N2Zz4=" type="image/svg+xml">
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Smokum&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="./style.css">
-	
-	</head>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Blunkerton™</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon"
+		href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4gPGRlZnM+IDxmaWx0ZXIgaWQ9ImJsdXIiIHg9Ii0yMDAlIiB5PSItMjAwJSIgd2lkdGg9IjEwMDAlIiBoZWlnaHQ9IjEwMDAlIj4gPGZlR2F1c3NpYW5CbHVyIGluPSJTb3VyY2VHcmFwaGljIiBzdGREZXZpYXRpb249IjEiPjwvZmVHYXVzc2lhbkJsdXI+IDwvZmlsdGVyPiA8L2RlZnM+IDxnIGNsYXNzPSJiYWRHdXlCb2R5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIC0xMCkiPiA8ZWxsaXBzZSBjbGFzcz0ic2hhZG93IiBjeD0iNTAiIGN5PSI5MCIgcng9IjI1IiByeT0iMyIgZmlsbD0icmdiYSgwLDAsMCwwLjQpIiBmaWx0ZXI9InVybCgjYmx1cikiPjwvZWxsaXBzZT4gPGcgY2xhc3M9Imd1eUJvZHkiPiA8IS0tIHNoaXJ0IC0tPiA8cGF0aCBjbGFzcz0ic2hpcnQiIGQ9Ik0gNDUgNDkgUSA1MCA1MCA1NSA0OSBRIDYxIDUyIDY1IDUzIFEgNjggNDggNzEgNTEgUSA3NCA1NCA2OSA1OSBRIDY3IDYxIDYwIDYxIFYgNjQgSCAzOSBWIDU5IFEgMzcgNTcgMzQgNTcgUSAzMiA1NyAzMCA1OSBRIDI4IDYxIDI2IDU5IFEgMjUgNTcgMjYgNTUgUSAzMyA0NCA0NSA0OSIgZmlsbD0iZmlyZWJyaWNrIiBzdHJva2U9IiMwMDAiPiA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJkIiB2YWx1ZXM9Ik0gNDUgNDkgUSA1MCA1MCA1NSA0OSBRIDYxIDUyIDY1IDUzIFEgNjggNDggNzEgNTEgUSA3NCA1NCA2OSA1OSBRIDY3IDYxIDYwIDYxIFYgNjQgSCAzOSBWIDU5IFEgMzcgNTcgMzQgNTcgUSAzMiA1NyAzMCA1OSBRIDI4IDYxIDI2IDU5IFEgMjUgNTcgMjYgNTUgUSAzMyA0NCA0NSA0OTsgTSA0NSA0OSBRIDUwIDUwIDU1IDQ5IFEgNjEgNTIgNjUgNTMgUSA2OCA0OCA3MSA1MSBRIDc0IDU0IDY5IDU5IFEgNjcgNjEgNjAgNjEgViA2NCBIIDM5IFYgNTkgUSAzNyA1NyAzNSA1NyBRIDMzIDU3IDMyIDU5IFEgMzEgNjIgMjggNjAgUSAyNiA1OSAyOCA1NSBRIDMzIDQ0IDQ1IDQ5OyBNIDQ1IDQ5IFEgNTAgNTAgNTUgNDkgUSA2MSA1MiA2NSA1MyBRIDY4IDQ4IDcxIDUxIFEgNzQgNTQgNjkgNTkgUSA2NyA2MSA2MCA2MSBWIDY0IEggMzkgViA1OSBRIDM3IDU3IDM0IDU3IFEgMzIgNTcgMzAgNTkgUSAyOCA2MSAyNiA1OSBRIDI1IDU3IDI2IDU1IFEgMzMgNDQgNDUgNDkiIGR1cj0iNXMiIGJlZ2luPSIwcyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiPjwvYW5pbWF0ZT4gPC9wYXRoPiA8IS0tIGlubmVyIHNoaXJ0IC0tPiA8cGF0aCBjbGFzcz0iaW5uZXJTaGlydCIgZD0iTSA0OSA1MCBRIDQ5IDUzIDQ3IDY0IEggNTMgUSA1MSA1MyA1MSA1MCBaIiBmaWxsPSJmaXJlYnJpY2siPjwvcGF0aD4gPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzMzIiBzdHJva2Utd2lkdGg9IjIuNSIgZD0iTSA0NiA2NCBRIDQ4IDU0IDQ4IDQ5IE0gNTQgNjQgUSA1MiA1NCA1MiA0OSI+PC9wYXRoPiA8IS0tIGNvbGxhciAtLT4gPHBhdGggZD0iTSA0NSA1MSBWIDQ4IFEgNTAgNTAgNTUgNDggViA1MiBMIDUwIDUwIEggNTAgWiIgZmlsbD0iZmlyZWJyaWNrIiBmaWx0ZXI9ImJyaWdodG5lc3MoMTQwJSkiIHN0cm9rZT0iIzAwMCI+PC9wYXRoPiA8IS0tIHBhbnRzIC0tPiA8cGF0aCBkPSJNIDQwIDY5IFEgNTAgNjcgNTggNjkgUSA2MiA3NiA2MiA4NiBRIDU5IDg2IDU2IDg4IFEgNTMgNzUgNDkgNzUgUSA0NCA3NSA0MSA4NyBRIDM4IDg2IDM1IDg2IFEgMzYgNzYgNDAgNjkiIGZpbGw9IiM1NTUiIHN0cm9rZT0iIzAwMCI+PC9wYXRoPiA8IS0tIGJvb3RzIC0tPiA8cGF0aCBkPSJNIDMzIDkwIFEgMzMgODkgMzUgODYgUSAzNiA4NCA0MSA4NyBWIDkwIFogTSA2NCA5MCBRIDY0IDg5IDYyIDg2IFEgNjAgODQgNTYgODggViA5MCBaIiBmaWxsPSIjMTExIiBzdHJva2U9IiMwMDAiPjwvcGF0aD4gPCEtLSBiZWx0IC0tPiA8cGF0aCBkPSJNIDM5IDY0IEggNjAgQyA2MyA2OCA1OSA3MCA1OCA2OSBRIDUwIDY3IDQwIDY5IEMgMzkgNzAgMzYgNjcgMzkgNjQiIGZpbGw9ImJyb3duIiBzdHJva2U9IiMwMDAiPjwvcGF0aD4gPCEtLSBiZWx0IGJ1Y2tsZSAtLT4gPHJlY3QgeD0iNDYiIHk9IjYyLjUiIGhlaWdodD0iNyIgd2lkdGg9IjciIHJ4PSIxIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iNCI+PC9yZWN0PiA8cmVjdCB4PSI0NiIgeT0iNjIuNSIgaGVpZ2h0PSI3IiB3aWR0aD0iNyIgcng9IjEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iZ29sZGVucm9kIiBzdHJva2Utd2lkdGg9IjIiPjwvcmVjdD4gPCEtLSBoYXQgLS0+IDxwYXRoIGNsYXNzPSJoYXRCcmltIiBkPSJNIDUwIDQwIFEgNjggNDIgNzIgMzQgUSA3NSAyOCA2NyAyNyBRIDUwIDI4IDMzIDI3IFEgMjUgMjggMjggMzUgUSAzMSA0MSA1MCA0MHoiIGZpbGw9IiMwMDAiIHN0cm9rZT0iIzAwMCI+PC9wYXRoPiA8IS0tIGhlYWQgLS0+IDxwYXRoIGNsYXNzPSJoZWFkIHNraW4iIGQ9Ik0gMzggMzggQSAxIDEgMCAwIDAgNjIgMzggQyA2MiAzMyA2MCAyNyA1MCAyNyBDIDQxIDI3IDM4IDMzIDM4IDM4eiIgZmlsbD0idGFuIiBzdHJva2U9IiMwMDAiPjwvcGF0aD4gPCEtLSBleWVzIC0tPiA8Y2lyY2xlIGNsYXNzPSJleWVMIiBjeD0iNDYiIGN5PSIzOSIgcj0iMiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjAuNSIgZmlsbD0iI2ZmZiI+PC9jaXJjbGU+IDxjaXJjbGUgY2xhc3M9ImV5ZVIiIGN4PSI1NCIgY3k9IjM5IiByPSIyIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSIjZmZmIj48L2NpcmNsZT4gPCEtLSBwdXBpbHMgLS0+IDxjaXJjbGUgY2xhc3M9InB1cGlsTCIgY3g9IjQ2IiBjeT0iMzkiIHI9IjAuNSIgZmlsbD0iIzAwMCI+PC9jaXJjbGU+IDxjaXJjbGUgY2xhc3M9InB1cGlsUiIgY3g9IjU0IiBjeT0iMzkiIHI9IjAuNSIgZmlsbD0iIzAwMCI+PC9jaXJjbGU+IDwhLS0gYnJvd3MgLS0+IDxwYXRoIGNsYXNzPSJicm93cyIgZD0iTTQyIDM0IGwgNy41IDMgdjIgbCAtNyAtMiBaTTU4IDM0IGwgLTcuNSAzIHYyIGwgNyAtMloiIGZpbGw9IiMwMDAiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIwLjMiPjwvcGF0aD4gPCEtLSBleWVwYXRjaCAtLT4gPHBhdGggY2xhc3M9ImV5ZXBhdGNoIiBkPSJNIDYyIDM5IEggNTYgViAzOSBBIDEgMSAwIDAgMSA1MC41IDM5IEwgNDAgMzIgTCA0MSAzMCBMIDUxIDM3IEwgNjIgMzdaIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwIj48L3BhdGg+IDwhLS0gbW91dGggLS0+IDxwYXRoIGNsYXNzPSJtb3V0aCIgZD0iTSA0OSA0MSBBIDEgMSAwIDAgMCA1MSA0MSIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDAwIj48L3BhdGg+IDxwYXRoIGNsYXNzPSJtb3VzdGFjaGUiIGQ9Ik0gNDkgNDMgQSAxIDEgMCAwIDAgNDggNDAgQyA0NiA0MSA0NyA0MyA0MiA0MiBRIDQ1IDQ1IDQ5IDQzIFogTSA1MSA0MyBBIDEgMSAwIDAgMSA1MiA0MCBDIDU0IDQxIDUzIDQzIDU4IDQyIFEgNTUgNDUgNTEgNDMgWiIgZmlsbD0iIzAwMCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjAuMyIgb3BhY2l0eT0iMSI+PC9wYXRoPiA8cGF0aCBjbGFzcz0iYmVhcmQiIGQ9Ik0gNDkgNDkgQSAxIDEgMCAwIDEgNTEgNDkgQyA1MSA1MCA1MCA1MSA1MCA1MiBDIDUwIDUxIDQ5IDUwIDQ5IDQ5IFoiIGZpbGw9IiMwMDAiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIwLjMiIG9wYWNpdHk9IjAiPjwvcGF0aD4gPCEtLSBoYXQgMiAtLT4gPHBhdGggY2xhc3M9ImhhdFRvcCIgZD0iTSAzNiAyOCBRIDUwIDI5IDYzIDI4IEMgNjMgMjYgNjIgMjUgNjAgMjQgUSA1MCAyMSA0MCAyNCBDIDM3IDI1IDM2IDI2IDM2IDI4WiIgZmlsbD0iIzAwMCIgZmlsdGVyPSJpbnZlcnQoMTAlKSIgc3Ryb2tlPSIjMDAwIj48L3BhdGg+IDxwYXRoIGNsYXNzPSJoYXRCcmltMiIgZD0iTSAzNyAzMyBRIDUwIDI5IDYzIDMzIEEgMSAxIDAgMCAwIDY3IDI3IFEgNTAgMjggMzMgMjcgQSAxIDEgMCAwIDAgMzcgMzNaIiBmaWxsPSIjMDAwIj48L3BhdGg+IDxwYXRoIGNsYXNzPSJoYXRCcmltMlN0cm9rZSIgZD0iTSA2NyAyNyBRIDUwIDI4IDMzIDI3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiPjwvcGF0aD4gPCEtLSBndW4gLS0+IDxlbGxpcHNlIGN4PSIzNyIgY3k9IjY4IiByeD0iMS41IiByeT0iNCIgZmlsbD0iIzY2NiIgc3Ryb2tlPSIjMDAwIj48L2VsbGlwc2U+IDxlbGxpcHNlIGN4PSIzNyIgY3k9IjY4IiByeD0iMi41IiByeT0iMi41IiBmaWxsPSJzaWx2ZXIiIHN0cm9rZT0iIzAwMCI+PC9lbGxpcHNlPiA8ZWxsaXBzZSBjeD0iMzciIGN5PSI3MiIgcng9IjIuNSIgcnk9IjUiIGZpbGw9ImJyb3duIiBzdHJva2U9IiMwMDAiPjwvZWxsaXBzZT4gPCEtLSBoYW5kcyAtLT4gPGNpcmNsZSBjbGFzcz0ic2tpbiIgY3g9IjMwIiBjeT0iNjIiIHI9IjQiIGZpbGw9InRhbiIgc3Ryb2tlPSIjMDAwIj4gPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iY3giIHZhbHVlcz0iMjk7IDMxLjU7IDI5IiBkdXI9IjVzIiBiZWdpbj0iLTE5MzltcyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiPjwvYW5pbWF0ZT4gPC9jaXJjbGU+IDxjaXJjbGUgY2xhc3M9InNraW4iIGN4PSI3MCIgY3k9IjUyIiByPSI0IiBmaWxsPSJ0YW4iIHN0cm9rZT0iIzAwMCI+PC9jaXJjbGU+IDwvZz4gPC9nPiA8L3N2Zz4="
+		type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Smokum&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="./style.css">
+
+</head>
+
 <body>
-<!-- partial:index.partial.html -->
-<div class="pageContent">
-	<!--FILTERS-->
-	<svg xmlns="http://www.w3.org/2000/svg" height="0" width="0">
-		<defs>
-			<filter id="filter">
-				<feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="10" result="noise" />
-				<feDisplacementMap in="SourceGraphic" in2="noise" scale="10" />
-			</filter>
-			<radialGradient id="gg">
-				<stop offset="0%" stop-color="#000" />
-				<stop offset="80%" stop-color="#000" />
-				<stop offset="100%" stop-color="rgb(255,255,255)" />
-			</radialGradient>
-			<filter id="hell">
-				<feTurbulence class="customBF" baseFrequency="0.666" numOctaves="6" seed="666"></feTurbulence>
-				<feColorMatrix class="anim" type="hueRotate" values="0">
-					<animate attributeName="values" from="0" to="360" dur="2s" repeatCount="indefinite"></animate>
-				</feColorMatrix>
-				<feColorMatrix class="customMatrix" values="0.8 -0.6 -0.1 1.1 0.2 1.1 2.6 -3.2 3.5 -1.6 -1 -0.7 -4.2 3 -3.6 0.4 1.9 2.6 0.6 -0.9"></feColorMatrix>
-				<feComposite operator="in" in2="SourceGraphic" />
-			</filter>
-			<filter id="blur" x="-200%" y="-200%" width="1000%" height="1000%">
-				<feGaussianBlur in="SourceGraphic" stdDeviation="1" />
-			</filter>
-		</defs>
-	</svg>
+	<!-- partial:index.partial.html -->
+	<div class="pageContent">
+		<!--FILTERS-->
+		<svg xmlns="http://www.w3.org/2000/svg" height="0" width="0">
+			<defs>
+				<filter id="filter">
+					<feTurbulence type="fractalNoise" baseFrequency=".5" numOctaves="10" result="noise" />
+					<feDisplacementMap in="SourceGraphic" in2="noise" scale="10" />
+				</filter>
+				<radialGradient id="gg">
+					<stop offset="0%" stop-color="#000" />
+					<stop offset="80%" stop-color="#000" />
+					<stop offset="100%" stop-color="rgb(255,255,255)" />
+				</radialGradient>
+				<filter id="blur" x="-200%" y="-200%" width="1000%" height="1000%">
+					<feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+				</filter>
+			</defs>
+		</svg>
 
-	<!--GAMEPLAY-->
-	<div id="game-container">
-		<div id="game">
-			<div id="grid"></div>
-			<div id="selector">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-					<linearGradient id="grad">
-						<stop offset="0%" stop-color="#cd4bf0" />
-						<stop offset="33%" stop-color="#7653f3" />
-						<stop offset="66%" stop-color="#51b4f2" />
-						<stop offset="100%" stop-color="#f3b705" />
-					</linearGradient>
-					<g id="knob" transform="rotate(35 50 60)">
-						<path d="M50 20 l7 13 h-14z" fill="#222" />
-						<circle cx="50" cy="60" r="30" fill="#222" />
-						<circle id="knobColor" cx="50" cy="60" r="27" fill="#333" />
-					</g>
-					<g fill="none" stroke="#000" stroke-width="0.5">
-						<circle cx="6" cy="25" r="2" />
-						<rect x="10" y="23" height="4" width="4" />
-						<circle cx="18" cy="25" r="2" />
-						<rect x="22" y="23" height="4" width="4" />
-					</g>
-					<rect x="75" y="23" height="4" width="20" fill="url(#grad)" />
-					<text x="15" y="15" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#000" font-weight="900" textLength="25" lengthAdjust="spacingAndGlyphs">SHAPE</text>
-					<text x="85" y="15" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#000" font-weight="900" textLength="25" lengthAdjust="spacingAndGlyphs">COLOR</text>
-				</svg>
-				<span id="heroProgress">
-					<svg viewBox="0 0 10 100">
-						<path id="levelsComplete" d="M5 100v0" stroke="forestgreen" stroke-width="10" fill="none">
-						</path>
+		<!--GAMEPLAY-->
+		<div id="game-container">
+			<div id="game">
+				<div id="grid"></div>
+				<div id="selector">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+						<linearGradient id="grad">
+							<stop offset="0%" stop-color="#cd4bf0" />
+							<stop offset="33%" stop-color="#7653f3" />
+							<stop offset="66%" stop-color="#51b4f2" />
+							<stop offset="100%" stop-color="#f3b705" />
+						</linearGradient>
+						<g id="knob" transform="rotate(35 50 60)">
+							<path d="M50 20 l7 13 h-14z" fill="#222" />
+							<circle cx="50" cy="60" r="30" fill="#222" />
+							<circle id="knobColor" cx="50" cy="60" r="27" fill="#333" />
+						</g>
+						<g fill="none" stroke="#000" stroke-width="0.5">
+							<circle cx="6" cy="25" r="2" />
+							<rect x="10" y="23" height="4" width="4" />
+							<circle cx="18" cy="25" r="2" />
+							<rect x="22" y="23" height="4" width="4" />
+						</g>
+						<rect x="75" y="23" height="4" width="20" fill="url(#grad)" />
+						<text x="15" y="15" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#000"
+							font-weight="900" textLength="25" lengthAdjust="spacingAndGlyphs">SHAPE</text>
+						<text x="85" y="15" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#000"
+							font-weight="900" textLength="25" lengthAdjust="spacingAndGlyphs">COLOR</text>
 					</svg>
-				</span>
-				<span id="enemyProgress">
-					<!--enemy countdown populates here-->
-				</span>
-				<span id="enemyCountDown"></span>
-				<div id="prompt"></div>
-			</div>
-			<div id="message"></div>
-		</div>
-	</div>
-
-	<!--LOSS SCREEN -->
-	<div id="lossScreen">
-		<h1>Nooo... <span id="baddieLoss" class="outlawName">Dastardly Dan</span> done got ya...</h1><br />
-		<h4>Lucky for you, <span id="baddieLoss2">Dan</span>'s a poor shot and it's just a flesh wound.<br />You'll shake it off...</h4>
-		<button id="sleepOff">Sleep it off Cowpoke!</button>
-	</div>
-
-	<!--WIN SCREEN -->
-	<div id="winModal">
-		<div class="modal-content">
-			<div id="defeatedOutlawContainer" class="defeated-outlaw-frame">
-			</div>
-			<h2 id="victoryPhrase">Clean draw!<br />Take your shot!</h2>
-			<div class="modal-buttons">
-				<button id="backToTrailButton2">A Lawman's Work is Never Done</button>
+					<span id="heroProgress">
+						<svg viewBox="0 0 10 100">
+							<path id="levelsComplete" d="M5 100v0" stroke="forestgreen" stroke-width="10" fill="none">
+							</path>
+						</svg>
+					</span>
+					<span id="enemyProgress">
+						<!--enemy countdown populates here-->
+					</span>
+					<span id="enemyCountDown"></span>
+					<div id="prompt"></div>
+				</div>
+				<div id="message"></div>
 			</div>
 		</div>
-	</div>
 
-	<!--DAY WIN SCREEN -->
-	<div id="dayWinModal">
-		<div class="modal-content">
-			<div id="todaysMedal"></div>
-			<h1 id="dayVictoryPhrase">All outlaws dispatched!<br />Come on back tomorrow for more duelin'</h1>
+		<!--LOSS SCREEN -->
+		<div id="lossScreen">
+			<h1>Nooo... <span id="outlawFullName" class="fullOutlawName">Dastardly Dan</span> done got ya...</h1><br />
+			<h4>Lucky for you, <span id="outlawFirstName">Dan</span>'s a poor shot and it's just a flesh
+				wound.<br />You'll be back in the saddle quick as a wink...</h4>
+			<button id="sleepOff">Sleep it off Cowpoke!</button>
 		</div>
-	</div>
 
-	<!--INSTRUCTIONS SCREEN -->
-	<div id="instructionsModal">
-		<div class="modal-content">
-			<h1 id="welcome" class="welcometitle">Welcome to Blunkerton!</h1>
-			<div class="instructions-container">
-
-				<div class="instruction-item">
-					<div class="instruction-text">
-						Please help us sheriff... Outlaws plague our town!
-					</div>
-					<div class="instruction-svg">
-						<div class="svg-container">
-							<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-								<defs>
-									<filter id="blurr" x="-200%" y="-200%" width="1000%" height="1000%">
-										<feGaussianBlur in="SourceGraphic" stdDeviation="1"></feGaussianBlur>
-									</filter>
-								</defs>
-								<g transform="translate(0 -10)">
-									<ellipse cx="50" cy="90" rx="25" ry="3" fill="rgba(0,0,0,0.4)" filter="url(#blurr)"></ellipse>
-									<g>
-										<path d="M 45 49 Q 50 50 55 49 Q 61 52 65 53 Q 68 48 71 51 Q 74 54 69 59 Q 67 61 60 61 V 64 H 39 V 59 Q 37 57 34 57 Q 32 57 30 59 Q 28 61 26 59 Q 25 57 26 55 Q 33 44 45 49" fill="firebrick" stroke="#000">
-											<animate attributeName="d" values="M 45 49 Q 50 50 55 49 Q 61 52 65 53 Q 68 48 71 51 Q 74 54 69 59 Q 67 61 60 61 V 64 H 39 V 59 Q 37 57 34 57 Q 32 57 30 59 Q 28 61 26 59 Q 25 57 26 55 Q 33 44 45 49; M 45 49 Q 50 50 55 49 Q 61 52 65 53 Q 68 48 71 51 Q 74 54 69 59 Q 67 61 60 61 V 64 H 39 V 59 Q 37 57 35 57 Q 33 57 32 59 Q 31 62 28 60 Q 26 59 28 55 Q 33 44 45 49; M 45 49 Q 50 50 55 49 Q 61 52 65 53 Q 68 48 71 51 Q 74 54 69 59 Q 67 61 60 61 V 64 H 39 V 59 Q 37 57 34 57 Q 32 57 30 59 Q 28 61 26 59 Q 25 57 26 55 Q 33 44 45 49" dur="5s" begin="0s" repeatCount="indefinite"></animate>
-										</path>
-										<path d="M 49 50 Q 49 53 47 64 H 53 Q 51 53 51 50 Z" fill="firebrick"></path>
-										<path fill="none" stroke="#333" stroke-width="2.5" d="M 46 64 Q 48 54 48 49 M 54 64 Q 52 54 52 49"></path>
-										<path d="M 45 51 V 48 Q 50 50 55 48 V 52 L 50 50 H 50 Z" fill="firebrick" filter="brightness(140%)" stroke="#000"></path>
-										<path d="M 40 69 Q 50 67 58 69 Q 62 76 62 86 Q 59 86 56 88 Q 53 75 49 75 Q 44 75 41 87 Q 38 86 35 86 Q 36 76 40 69" fill="#555" stroke="#000"></path>
-										<path d="M 33 90 Q 33 89 35 86 Q 36 84 41 87 V 90 Z M 64 90 Q 64 89 62 86 Q 60 84 56 88 V 90 Z" fill="#111" stroke="#000"></path>
-										<path d="M 39 64 H 60 C 63 68 59 70 58 69 Q 50 67 40 69 C 39 70 36 67 39 64" fill="brown" stroke="#000"></path>
-										<rect x="46" y="62.5" height="7" width="7" rx="1" fill="none" stroke="#000" stroke-width="4"></rect>
-										<rect x="46" y="62.5" height="7" width="7" rx="1" fill="none" stroke="goldenrod" stroke-width="2"></rect>
-										<path d="M 50 40 Q 68 42 72 34 Q 75 28 67 27 Q 50 28 33 27 Q 25 28 28 35 Q 31 41 50 40z" fill="#000" stroke="#000"></path>
-										<path d="M 38 38 A 1 1 0 0 0 62 38 C 62 33 60 27 50 27 C 41 27 38 33 38 38z" fill="tan" stroke="#000"></path>
-										<circle cx="46" cy="39" r="2" stroke="#000" stroke-width="0.5" fill="#fff"></circle>
-										<circle cx="54" cy="39" r="2" stroke="#000" stroke-width="0.5" fill="#fff"></circle>
-										<circle cx="46" cy="39" r="0.5" fill="#000"></circle>
-										<circle cx="54" cy="39" r="0.5" fill="#000"></circle>
-										<path d="M42 34 l 7.5 3 v2 l -7 -2 ZM58 34 l -7.5 3 v2 l 7 -2Z" fill="#000" stroke="#000" stroke-width="0.3"></path>
-										<path d="M 49 41 A 1 1 0 0 0 51 41" fill="#fff" stroke="#000"></path>
-										<path d="M 49 43 A 1 1 0 0 0 48 40 C 46 41 47 43 42 42 Q 45 45 49 43 Z M 51 43 A 1 1 0 0 1 52 40 C 54 41 53 43 58 42 Q 55 45 51 43 Z" fill="#000" stroke="#000" stroke-width="0.3" opacity="1"></path>
-										<path d="M 49 49 A 1 1 0 0 1 51 49 C 51 50 50 51 50 52 C 50 51 49 50 49 49 Z" fill="#000" stroke="#000" stroke-width="0.3" opacity="0"></path>
-										<path d="M 36 28 Q 50 29 63 28 C 63 26 62 25 60 24 Q 50 21 40 24 C 37 25 36 26 36 28Z" fill="#000" filter="invert(10%)" stroke="#000"></path>
-										<path d="M 37 33 Q 50 29 63 33 A 1 1 0 0 0 67 27 Q 50 28 33 27 A 1 1 0 0 0 37 33Z" fill="#000"></path>
-										<path d="M 67 27 Q 50 28 33 27" fill="none" stroke="#000" stroke-linecap="square"></path>
-										<ellipse cx="37" cy="68" rx="1.5" ry="4" fill="#666" stroke="#000"></ellipse>
-										<ellipse cx="37" cy="68" rx="2.5" ry="2.5" fill="silver" stroke="#000"></ellipse>
-										<ellipse cx="37" cy="72" rx="2.5" ry="5" fill="brown" stroke="#000"></ellipse>
-										<circle cx="30" cy="62" r="4" fill="tan" stroke="#000">
-											<animate attributeName="cx" values="29; 31.5; 29" dur="5s" begin="-1939ms" repeatCount="indefinite"></animate>
-										</circle>
-										<circle cx="70" cy="52" r="4" fill="tan" stroke="#000"></circle>
-									</g>
-								</g>
-							</svg>
-						</div>
-					</div>
+		<!--WIN SCREEN -->
+		<div id="winModal">
+			<div class="modal-content">
+				<div id="defeatedOutlawContainer" class="defeated-outlaw-frame">
 				</div>
-
-				<div class="divider"></div>
-
-				<div class="instruction-item">
-					<div class="instruction-text">
-						Tap each outlaw to challenge them to a duel!
-					</div>
-					<div class="instruction-svg">
-						<div class="svg-container">
-							<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-								<rect x="20" y="20" height="20" width="20" fill="#7653f3" />
-								<rect x="40" y="20" height="20" width="20" fill="#cd4bf0" rx="10" />
-								<rect x="60" y="20" height="20" width="20" fill="#f3b705" />
-								<rect x="20" y="40" height="20" width="20" fill="#cd4bf0" rx="10" />
-								<rect x="40" y="40" height="20" width="20" fill="#cd4bf0" />
-								<rect x="60" y="40" height="20" width="20" fill="#51b4f2" />
-								<rect x="20" y="60" height="20" width="20" fill="#7653f3" rx="10" />
-								<rect x="40" y="60" height="20" width="20" fill="#51b4f2" />
-								<rect x="60" y="60" height="20" width="20" fill="#cd4bf0" rx="10" />
-							</svg>
-						</div>
-					</div>
+				<h2 id="victoryPhrase">Clean draw!<br />Take your shot!</h2>
+				<div class="modal-buttons">
+					<button id="backToTrailButton2">A Lawman's Work is Never Done</button>
 				</div>
+			</div>
+		</div>
 
-				<div class="divider"></div>
+		<!--DAY WIN SCREEN -->
+		<div id="dayWinModal">
+			<div class="modal-content">
+				<div id="todaysMedal"></div>
+				<h1 id="dayVictoryPhrase">All outlaws dispatched!<br />Come on back tomorrow for more duelin'</h1>
+			</div>
+		</div>
 
-				<div class="instruction-item">
-					<div class="instruction-text">
-						Shoot all <b>SHAPES</b> or <b>COLORS</b> based on the selector before the outlaw plugs you!
-					</div>
-					<div class="instruction-svg">
-						<div class="svg-container">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-								<rect x="20" y="0" height="20" width="20" fill="#7653f3" />
-								<rect x="40" y="0" height="20" width="20" fill="#cd4bf0" rx="10" />
-								<rect x="60" y="0" height="20" width="20" fill="#f3b705" />
-								<rect x="20" y="20" height="20" width="20" fill="#cd4bf0" rx="10" />
-								<rect x="40" y="20" height="20" width="20" fill="#cd4bf0" />
-								<rect x="42.5" y="22.5" height="15" width="15" fill="#8b4513" rx="10" />
-								<rect x="60" y="20" height="20" width="20" fill="#51b4f2" />
-								<rect x="20" y="40" height="20" width="20" fill="#7653f3" rx="10" />
-								<rect x="40" y="40" height="20" width="20" fill="#51b4f2" />
-								<rect x="60" y="40" height="20" width="20" fill="#cd4bf0" rx="10" />
-								<rect x="62.5" y="42.5" height="15" width="15" fill="#8b4513" rx="10" />
+		<!--INSTRUCTIONS SCREEN -->
+		<div id="instructionsModal">
+			<div class="modal-content">
+				<h1 id="welcome" class="welcometitle">Welcome to Blunkerton!</h1>
+				<div class="instructions-container">
 
-								<text x="30" y="69" text-anchor="middle" dominant-baseline="middle" font-size="15" fill="#000" font-weight="900" textLength="20" lengthAdjust="spacingAndGlyphs">SHAPE</text>
-								<text x="70" y="69" text-anchor="middle" dominant-baseline="middle" font-size="15" fill="#000" font-weight="900" textLength="20" lengthAdjust="spacingAndGlyphs">COLOR</text>
-
-								<circle cx="50" cy="80" r="10" fill="#000" />
-								<circle cx="50" cy="80" r="8" fill="#cd4bf0" />
-								<path d="M50 66 l3 6h-6z" fill="#000" transform="rotate(35 50 80)" />
-							</svg>
+					<div class="instruction-item">
+						<div class="instruction-text">
+							Please help us sheriff... Outlaws plague our town!
 						</div>
-					</div>
-				</div>
-
-				<div class="divider"></div>
-
-				<div class="instruction-item">
-					<div class="instruction-text">
-						Defeat them all and we'll award you our town's highest honor... <br />a fancy medal! <br />Custom made special each day
-					</div>
-					<div class="instruction-svg">
-						<div class="svg-container">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-								<defs>
-									<clipPath id="medalMask-instructions">
-										<circle cx="50" cy="50" r="35" clip-rule="evenodd"></circle>
-									</clipPath>
-								</defs>
-								<g transform="translate(0 10)">
-									<path d="M0 0l33 33h20l-10-33z" fill="#00f" stroke="#000"></path>
-									<path d="M100 0l-33 33h-20l10-33z" fill="#00d" stroke="#000"></path>
-									<g fill="gold" clip-path="url(#medalMask-instructions)">
-										<circle cx="50" cy="50" r="35"></circle>
-										<circle cx="50" cy="50" r="35" fill="#000" opacity="0.2"></circle>
-										<path d="M -10 90 L 0 100 L 100 0 L 90 -10" fill="#fff"></path>
-										<path d="M 0 0 V 100 L 100 0 Z"></path>
-										<path d="M 0 0 V 100 L 100 0 Z" fill="#fff" opacity="0.2"></path>
-										<circle cx="50" cy="50" r="30"></circle>
+						<div class="instruction-svg">
+							<div class="svg-container">
+								<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+									<defs>
+										<filter id="blurr" x="-200%" y="-200%" width="1000%" height="1000%">
+											<feGaussianBlur in="SourceGraphic" stdDeviation="1"></feGaussianBlur>
+										</filter>
+									</defs>
+									<g transform="translate(0 -10)">
+										<ellipse cx="50" cy="90" rx="25" ry="3" fill="rgba(0,0,0,0.4)"
+											filter="url(#blurr)"></ellipse>
 										<g>
-											<path d="M 50 0 l 11 35 h 37 l -30 22 l 11 34 l -29 -21 l -29 21 l 11 -34 l -30 -22 h 37 z M 50 25 l 5.5 17.5 h 18.5 l -15 11 l 5.5 17 l -14.5 -10.5 l -14.5 10.5 l 5.5 -17 l -15 -11 h 18.5 z" fill="none" stroke="#000" stroke-width="2"></path>
+											<path
+												d="M 45 49 Q 50 50 55 49 Q 61 52 65 53 Q 68 48 71 51 Q 74 54 69 59 Q 67 61 60 61 V 64 H 39 V 59 Q 37 57 34 57 Q 32 57 30 59 Q 28 61 26 59 Q 25 57 26 55 Q 33 44 45 49"
+												fill="firebrick" stroke="#000">
+												<animate attributeName="d"
+													values="M 45 49 Q 50 50 55 49 Q 61 52 65 53 Q 68 48 71 51 Q 74 54 69 59 Q 67 61 60 61 V 64 H 39 V 59 Q 37 57 34 57 Q 32 57 30 59 Q 28 61 26 59 Q 25 57 26 55 Q 33 44 45 49; M 45 49 Q 50 50 55 49 Q 61 52 65 53 Q 68 48 71 51 Q 74 54 69 59 Q 67 61 60 61 V 64 H 39 V 59 Q 37 57 35 57 Q 33 57 32 59 Q 31 62 28 60 Q 26 59 28 55 Q 33 44 45 49; M 45 49 Q 50 50 55 49 Q 61 52 65 53 Q 68 48 71 51 Q 74 54 69 59 Q 67 61 60 61 V 64 H 39 V 59 Q 37 57 34 57 Q 32 57 30 59 Q 28 61 26 59 Q 25 57 26 55 Q 33 44 45 49"
+													dur="5s" begin="0s" repeatCount="indefinite"></animate>
+											</path>
+											<path d="M 49 50 Q 49 53 47 64 H 53 Q 51 53 51 50 Z" fill="firebrick">
+											</path>
+											<path fill="none" stroke="#333" stroke-width="2.5"
+												d="M 46 64 Q 48 54 48 49 M 54 64 Q 52 54 52 49"></path>
+											<path d="M 45 51 V 48 Q 50 50 55 48 V 52 L 50 50 H 50 Z" fill="firebrick"
+												filter="brightness(140%)" stroke="#000"></path>
+											<path
+												d="M 40 69 Q 50 67 58 69 Q 62 76 62 86 Q 59 86 56 88 Q 53 75 49 75 Q 44 75 41 87 Q 38 86 35 86 Q 36 76 40 69"
+												fill="#555" stroke="#000"></path>
+											<path
+												d="M 33 90 Q 33 89 35 86 Q 36 84 41 87 V 90 Z M 64 90 Q 64 89 62 86 Q 60 84 56 88 V 90 Z"
+												fill="#111" stroke="#000"></path>
+											<path d="M 39 64 H 60 C 63 68 59 70 58 69 Q 50 67 40 69 C 39 70 36 67 39 64"
+												fill="brown" stroke="#000"></path>
+											<rect x="46" y="62.5" height="7" width="7" rx="1" fill="none" stroke="#000"
+												stroke-width="4"></rect>
+											<rect x="46" y="62.5" height="7" width="7" rx="1" fill="none"
+												stroke="goldenrod" stroke-width="2"></rect>
+											<path
+												d="M 50 40 Q 68 42 72 34 Q 75 28 67 27 Q 50 28 33 27 Q 25 28 28 35 Q 31 41 50 40z"
+												fill="#000" stroke="#000"></path>
+											<path d="M 38 38 A 1 1 0 0 0 62 38 C 62 33 60 27 50 27 C 41 27 38 33 38 38z"
+												fill="tan" stroke="#000"></path>
+											<circle cx="46" cy="39" r="2" stroke="#000" stroke-width="0.5" fill="#fff">
+											</circle>
+											<circle cx="54" cy="39" r="2" stroke="#000" stroke-width="0.5" fill="#fff">
+											</circle>
+											<circle cx="46" cy="39" r="0.5" fill="#000"></circle>
+											<circle cx="54" cy="39" r="0.5" fill="#000"></circle>
+											<path d="M42 34 l 7.5 3 v2 l -7 -2 ZM58 34 l -7.5 3 v2 l 7 -2Z" fill="#000"
+												stroke="#000" stroke-width="0.3"></path>
+											<path d="M 49 41 A 1 1 0 0 0 51 41" fill="#fff" stroke="#000"></path>
+											<path
+												d="M 49 43 A 1 1 0 0 0 48 40 C 46 41 47 43 42 42 Q 45 45 49 43 Z M 51 43 A 1 1 0 0 1 52 40 C 54 41 53 43 58 42 Q 55 45 51 43 Z"
+												fill="#000" stroke="#000" stroke-width="0.3" opacity="1"></path>
+											<path
+												d="M 49 49 A 1 1 0 0 1 51 49 C 51 50 50 51 50 52 C 50 51 49 50 49 49 Z"
+												fill="#000" stroke="#000" stroke-width="0.3" opacity="0"></path>
+											<path
+												d="M 36 28 Q 50 29 63 28 C 63 26 62 25 60 24 Q 50 21 40 24 C 37 25 36 26 36 28Z"
+												fill="#000" filter="invert(10%)" stroke="#000"></path>
+											<path
+												d="M 37 33 Q 50 29 63 33 A 1 1 0 0 0 67 27 Q 50 28 33 27 A 1 1 0 0 0 37 33Z"
+												fill="#000"></path>
+											<path d="M 67 27 Q 50 28 33 27" fill="none" stroke="#000"
+												stroke-linecap="square"></path>
+											<ellipse cx="37" cy="68" rx="1.5" ry="4" fill="#666" stroke="#000">
+											</ellipse>
+											<ellipse cx="37" cy="68" rx="2.5" ry="2.5" fill="silver" stroke="#000">
+											</ellipse>
+											<ellipse cx="37" cy="72" rx="2.5" ry="5" fill="brown" stroke="#000">
+											</ellipse>
+											<circle cx="30" cy="62" r="4" fill="tan" stroke="#000">
+												<animate attributeName="cx" values="29; 31.5; 29" dur="5s"
+													begin="-1939ms" repeatCount="indefinite"></animate>
+											</circle>
+											<circle cx="70" cy="52" r="4" fill="tan" stroke="#000"></circle>
 										</g>
-										<path d="M 40 140 L 50 150 L 150 50 L 140 40" fill="#fff" opacity="0.8"></path>
 									</g>
-								</g>
-							</svg>
+								</svg>
+							</div>
+						</div>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="instruction-item">
+						<div class="instruction-text">
+							Tap each outlaw to challenge them to a duel!
+						</div>
+						<div class="instruction-svg">
+							<div class="svg-container">
+								<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+									<rect x="20" y="20" height="20" width="20" fill="#7653f3" />
+									<rect x="40" y="20" height="20" width="20" fill="#cd4bf0" rx="10" />
+									<rect x="60" y="20" height="20" width="20" fill="#f3b705" />
+									<rect x="20" y="40" height="20" width="20" fill="#cd4bf0" rx="10" />
+									<rect x="40" y="40" height="20" width="20" fill="#cd4bf0" />
+									<rect x="60" y="40" height="20" width="20" fill="#51b4f2" />
+									<rect x="20" y="60" height="20" width="20" fill="#7653f3" rx="10" />
+									<rect x="40" y="60" height="20" width="20" fill="#51b4f2" />
+									<rect x="60" y="60" height="20" width="20" fill="#cd4bf0" rx="10" />
+								</svg>
+							</div>
+						</div>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="instruction-item">
+						<div class="instruction-text">
+							Shoot all <b>SHAPES</b> or <b>COLORS</b> based on the selector before the outlaw plugs you!
+						</div>
+						<div class="instruction-svg">
+							<div class="svg-container">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+									<rect x="20" y="0" height="20" width="20" fill="#7653f3" />
+									<rect x="40" y="0" height="20" width="20" fill="#cd4bf0" rx="10" />
+									<rect x="60" y="0" height="20" width="20" fill="#f3b705" />
+									<rect x="20" y="20" height="20" width="20" fill="#cd4bf0" rx="10" />
+									<rect x="40" y="20" height="20" width="20" fill="#cd4bf0" />
+									<rect x="42.5" y="22.5" height="15" width="15" fill="#8b4513" rx="10" />
+									<rect x="60" y="20" height="20" width="20" fill="#51b4f2" />
+									<rect x="20" y="40" height="20" width="20" fill="#7653f3" rx="10" />
+									<rect x="40" y="40" height="20" width="20" fill="#51b4f2" />
+									<rect x="60" y="40" height="20" width="20" fill="#cd4bf0" rx="10" />
+									<rect x="62.5" y="42.5" height="15" width="15" fill="#8b4513" rx="10" />
+
+									<text x="30" y="69" text-anchor="middle" dominant-baseline="middle" font-size="15"
+										fill="#000" font-weight="900" textLength="20"
+										lengthAdjust="spacingAndGlyphs">SHAPE</text>
+									<text x="70" y="69" text-anchor="middle" dominant-baseline="middle" font-size="15"
+										fill="#000" font-weight="900" textLength="20"
+										lengthAdjust="spacingAndGlyphs">COLOR</text>
+
+									<circle cx="50" cy="80" r="10" fill="#000" />
+									<circle cx="50" cy="80" r="8" fill="#cd4bf0" />
+									<path d="M50 66 l3 6h-6z" fill="#000" transform="rotate(35 50 80)" />
+								</svg>
+							</div>
+						</div>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="instruction-item">
+						<div class="instruction-text">
+							Defeat them all and we'll award you our town's highest honor... <br />a fancy medal!
+							<br />Custom made special each day
+						</div>
+						<div class="instruction-svg">
+							<div class="svg-container">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+									<defs>
+										<clipPath id="medalMask-instructions">
+											<circle cx="50" cy="50" r="35" clip-rule="evenodd"></circle>
+										</clipPath>
+									</defs>
+									<g transform="translate(0 10)">
+										<path d="M0 0l33 33h20l-10-33z" fill="#00f" stroke="#000"></path>
+										<path d="M100 0l-33 33h-20l10-33z" fill="#00d" stroke="#000"></path>
+										<g fill="gold" clip-path="url(#medalMask-instructions)">
+											<circle cx="50" cy="50" r="35"></circle>
+											<circle cx="50" cy="50" r="35" fill="#000" opacity="0.2"></circle>
+											<path d="M -10 90 L 0 100 L 100 0 L 90 -10" fill="#fff"></path>
+											<path d="M 0 0 V 100 L 100 0 Z"></path>
+											<path d="M 0 0 V 100 L 100 0 Z" fill="#fff" opacity="0.2"></path>
+											<circle cx="50" cy="50" r="30"></circle>
+											<g>
+												<path
+													d="M 50 0 l 11 35 h 37 l -30 22 l 11 34 l -29 -21 l -29 21 l 11 -34 l -30 -22 h 37 z M 50 25 l 5.5 17.5 h 18.5 l -15 11 l 5.5 17 l -14.5 -10.5 l -14.5 10.5 l 5.5 -17 l -15 -11 h 18.5 z"
+													fill="none" stroke="#000" stroke-width="2"></path>
+											</g>
+											<path d="M 40 140 L 50 150 L 150 50 L 140 40" fill="#fff" opacity="0.8">
+											</path>
+										</g>
+									</g>
+								</svg>
+							</div>
+						</div>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="instruction-item">
+						<div class="instruction-text">
+							Earn a new medal for every day you clear the outlaws out!
 						</div>
 					</div>
 				</div>
 
-				<div class="divider"></div>
-
-				<div class="instruction-item">
-					<div class="instruction-text">
-						Earn a new medal for every day you clear the outlaws out!
-					</div>
-				</div>
-			</div>
-
-			<!-- 			<a href="#" id="blunkerton-link">
+				<!-- 			<a href="#" id="blunkerton-link">
 				Ain't my first rodeo. Don't show me this no more...
 			</a> -->
-			<div class="modal-buttons">
-				<button id="startButton">Duel Some Outlaws!</button>
+				<div class="modal-buttons">
+					<button id="startButton">Duel Some Outlaws!</button>
+				</div>
+
 			</div>
-
 		</div>
-	</div>
 
-	<!--WANTED POSTER-->
-	<div id="duelModal">
-		<div class="modal-content">
-			<div class="modal-buttons">
-				<button id="duelButton">DUEL!</button>
-				<button id="backToTrailButton">Not now</button>
+		<!--WANTED POSTER-->
+		<div id="duelModal">
+			<div class="modal-content">
+				<div class="modal-buttons">
+					<button id="duelButton">DUEL!</button>
+					<button id="backToTrailButton">Not now</button>
+				</div>
+				<h1 class="wanted">WANTED</h1>
+
+				<div class="outlaw-frame">
+					<div id="outlawContainer"></div>
+				</div>
+
+				<div id="outlawName" class="outlawName">Dastardly Dan</div>
+				<label for="quickdraw">Quickdraw:</label>
+				<progress id="quickdraw" class="skillLevel" value="70" max="100">70 %</progress>
+				<label for="toughness">Toughness:</label>
+				<progress id="toughness" class="skillLevel" value="70" max="100">70 %</progress>
 			</div>
-			<h1 class="wanted">WANTED</h1>
+		</div>
 
-			<div class="outlaw-frame">
-				<div id="outlawContainer"></div>
+		<!--PATH TO VICTORY-->
+		<svg xmlns="http://www.w3.org/2000/svg" id="gameBoard" class="gameBoard" viewBox="0 0 400 1200">
+			<!--Safari needs the filters and gradients in the same svg-->
+			<defs>
+				<!-- 			<filter id="filter-ground">
+				<feTurbulence baseFrequency="0.00603 0.0345" numOctaves="6" seed="584"></feTurbulence>
+				<feColorMatrix values="0.7 0.3 -4.7 -4.7 -2 0.8 0.8 4.3 -0.8 -2.1 2.1 -2.8 -4.8 3.6 -3.6 1.2 1.4 -0.9 -1.9 0.5"></feColorMatrix>
+				<feDiffuseLighting lighting-color="tan" surfaceScale="1">
+					<feDistantLight azimuth="30" elevation="65"></feDistantLight>
+				</feDiffuseLighting>
+			</filter> -->
+				<filter id="turb" x="-50%" y="-50%" width="200%" height="200%">
+					<feTurbulence type="fractalNoise" baseFrequency=".008" numOctaves="6" result="turbulence" />
+					<feDisplacementMap in="SourceGraphic" in2="turbulence" xChannelSelector="R" scale="30" />
+				</filter>
+				<linearGradient id="pathGrad" gradientTransform="rotate(90)">
+					<stop offset="0%" stop-color="rgba(228, 87, 0)" />
+					<stop offset="100%" stop-color="#300" />
+				</linearGradient>
+				<pattern id="cactNeedles" viewBox="0 0 10 10" patternTransform="scale(1)" width="10%" height="10%">
+					<path d="M5 1v4" fill="none" stroke="lime" stroke-width="0.6" stroke-linecap="round" />
+				</pattern>
+				<linearGradient id="cactiGrad" spreadMethod="reflect" x1="20%" x2="40%">
+					<stop offset="0%" stop-color="limegreen" />
+					<stop offset="100%" stop-color="green" />
+				</linearGradient>
+				<linearGradient id="groundGrad" gradientTransform="rotate(90)">
+					<stop offset="30%" stop-color="rgba(228, 87, 0)" />
+					<stop offset="100%" stop-color="rgba(228, 87, 0, 0)" />
+				</linearGradient>
+				<filter id="cactiblur" x="-200%" y="-200%" width="1000%" height="1000%">
+					<feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+				</filter>
+				<filter id="sunblur" x="-200%" y="-200%" width="1000%" height="1000%">
+					<feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+				</filter>
+				<filter id="sunblur2" x="-200%" y="-200%" width="1000%" height="1000%">
+					<feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+				</filter>
+				<filter id="townblur" x="-200%" y="-200%" width="1000%" height="1000%">
+					<feGaussianBlur in="SourceGraphic" stdDeviation="0.7" />
+				</filter>
+			</defs>
+			<!--Sun-->
+			<circle cx="200" cy="-95" r="60" fill="#F86B02"
+				d="M 161 -47 Q 185 -56 208 -49 Q 221 -46 239 -47 L 400 25 V 55 H 0 V 25 Z" filter="url(#sunblur)" />
+			<circle cx="200" cy="-95" r="40" fill="#F70103"
+				d="M 161 -47 Q 185 -56 208 -49 Q 221 -46 239 -47 L 400 25 V 55 H 0 V 25 Z" filter="url(#sunblur2)" />
+			<!--Ground-->
+			<path d="M 161 -47 Q 185 -56 208 -49 Q 221 -46 239 -47 L 400 25 V 55 H 0 V 25 Z" fill="url(#groundGrad)" />
+			<!--TOWN-->
+			<!--LEFT SIDE-->
+			<!--Church-->
+			<g filter="url(#townblur)">
+				<path d="M 137 -20 L 162 -34 V -100 L 157 -101 L 151 -128 L 143 -102 L 137 -103 Z" fill="#6a423d" />
+				<!--Bank-->
+				<path d="M 91 5 L 137 -20 V -142 L 91 -162 Z" fill="darkgrey" />
+				<path d="M 91 -162 H 11 V -9 L 91 5 Z" fill="grey" />
+				<path
+					d="M 99 -107 l 8 0 v -21 l -8 -1 z M 99 -70 l 8 0 v -21 l -8 -1 z M 121 -106 l 6 1 v -19 l -6 -1 z M 121 -71 l 6 1 v -19 l -6 -1 z"
+					fill="rgba(0,0,0,0.1)" />
+				<!--Store-->
+				<path d="M 0 55 L 91 5 V -123 L 72 -128 A 1 1 0 0 0 31 -135 L 0 -142 Z" fill="#9c8170" />
+				<path d="M 25 -111 L 76 -106 V -123 L 25 -132 Z" fill="rgba(0,0,0,0.1)" />
+				<!--RIGHT SIDE-->
+				<!--Jail-->
+				<path d="M 287 -7 L 238 -34 V -125 L 287 -153 Z" fill="#648981" />
+				<path d="M 287 -7 V -153 H 356 V -14 Z" fill="rgb(80, 117, 109)" />
+				<!--Saloon-->
+				<path d="M 400 55 L 287 -7 V -113 L 325 -180 L 400 -149 Z" fill="#897d5e" />
+				<path d="M 287 -113 V -119 L 325 -186 L 400 -158 V -149 L 325 -180 Z" fill="#6a423d" />
+				<path d="M 336 -123 V -147 L 317 -138 V -119 Z" fill="#6a423d" />
+			</g>
+		</svg>
+
+		<div id="confettiHolder"></div>
+
+		<!-- Hamburger menu button -->
+		<button id="hamburgerMenuBtn" class="hamburger-menu-button">
+			&#9776;
+			<!-- Hamburger icon -->
+		</button>
+
+		<!-- Menu Overlay -->
+		<div id="menuOverlay" class="menu-overlay"></div>
+
+		<!-- Slide-out Menu -->
+		<div id="slideOutMenu" class="slide-out-menu">
+			<div class="menu-header">
+				<h2>Your Trophy Case</h2>
+				<button id="closeMenuBtn" class="close-menu-btn">&times;</button>
 			</div>
+			<div id="trophyCaseMedals" class="trophy-case-medals">
+				<!-- Medals will be dynamically loaded here by JavaScript -->
+				<div id="virtualScrollContainer" class="virtual-scroll-container"></div>
+			</div>
+			<div class="badge-container">
+				<div id="currentStreakBadge" class="badge"
+					title="Current number of days in a row you've been able to collect the daily badge">
+					<div class="badge-label">Current Streak</div>
+					<div class="badge-value">
+						<span id="currentStreakValue">0</span>
+						<span class="badge-icon">&#128293;</span> <!-- Fire emoji for current streak -->
+					</div>
+				</div>
 
-			<div id="outlawName" class="outlawName">Dastardly Dan</div>
-			<label for="quickdraw">Quickdraw:</label>
-			<progress id="quickdraw" class="skillLevel" value="70" max="100">70 %</progress>
-			<label for="toughness">Toughness:</label>
-			<progress id="toughness" class="skillLevel" value="70" max="100">70 %</progress>
-		</div>
-	</div>
-
-	<!--PATH TO VICTORY-->
-	<svg xmlns="http://www.w3.org/2000/svg" id="gameBoard" class="gameBoard" viewBox="0 0 400 1200">
-		<!--Safari needs the filters and gradients in the same svg-->
-		<defs>
-			<filter id="turb" x="-50%" y="-50%" width="200%" height="200%">
-				<feTurbulence type="fractalNoise" baseFrequency=".008" numOctaves="6" result="turbulence" />
-				<feDisplacementMap in="SourceGraphic" in2="turbulence" xChannelSelector="R" scale="30" />
-			</filter>
-			<linearGradient id="pathGrad" gradientTransform="rotate(90)">
-				<stop offset="0%" stop-color="rgba(228, 87, 0)" />
-				<stop offset="100%" stop-color="#300" />
-			</linearGradient>
-			<pattern id="cactNeedles" viewBox="0 0 10 10" patternTransform="scale(1)" width="10%" height="10%">
-				<path d="M5 1v4" fill="none" stroke="lime" stroke-width="0.6" stroke-linecap="round" />
-			</pattern>
-			<linearGradient id="cactiGrad" spreadMethod="reflect" x1="20%" x2="40%">
-				<stop offset="0%" stop-color="limegreen" />
-				<stop offset="100%" stop-color="green" />
-			</linearGradient>
-			<linearGradient id="groundGrad" gradientTransform="rotate(90)">
-				<stop offset="30%" stop-color="rgba(228, 87, 0)" />
-				<stop offset="100%" stop-color="rgba(228, 87, 0, 0)" />
-			</linearGradient>
-			<filter id="cactiblur" x="-200%" y="-200%" width="1000%" height="1000%">
-				<feGaussianBlur in="SourceGraphic" stdDeviation="1" />
-			</filter>
-			<filter id="sunblur" x="-200%" y="-200%" width="1000%" height="1000%">
-				<feGaussianBlur in="SourceGraphic" stdDeviation="10" />
-			</filter>
-			<filter id="sunblur2" x="-200%" y="-200%" width="1000%" height="1000%">
-				<feGaussianBlur in="SourceGraphic" stdDeviation="4" />
-			</filter>
-			<filter id="townblur" x="-200%" y="-200%" width="1000%" height="1000%">
-				<feGaussianBlur in="SourceGraphic" stdDeviation="0.7" />
-			</filter>
-		</defs>
-		<!--Sun-->
-		<circle cx="200" cy="-95" r="60" fill="#F86B02" d="M 161 -47 Q 185 -56 208 -49 Q 221 -46 239 -47 L 400 25 V 55 H 0 V 25 Z" filter="url(#sunblur)" />
-		<circle cx="200" cy="-95" r="40" fill="#F70103" d="M 161 -47 Q 185 -56 208 -49 Q 221 -46 239 -47 L 400 25 V 55 H 0 V 25 Z" filter="url(#sunblur2)" />
-		<!--Ground-->
-		<path d="M 161 -47 Q 185 -56 208 -49 Q 221 -46 239 -47 L 400 25 V 55 H 0 V 25 Z" fill="url(#groundGrad)" />
-		<!--TOWN-->
-		<!--LEFT SIDE-->
-		<!--Church-->
-		<g filter="url(#townblur)">
-			<path d="M 137 -20 L 162 -34 V -100 L 157 -101 L 151 -128 L 143 -102 L 137 -103 Z" fill="#6a423d" />
-			<!--Bank-->
-			<path d="M 91 5 L 137 -20 V -142 L 91 -162 Z" fill="darkgrey" />
-			<path d="M 91 -162 H 11 V -9 L 91 5 Z" fill="grey" />
-			<path d="M 99 -107 l 8 0 v -21 l -8 -1 z M 99 -70 l 8 0 v -21 l -8 -1 z M 121 -106 l 6 1 v -19 l -6 -1 z M 121 -71 l 6 1 v -19 l -6 -1 z" fill="rgba(0,0,0,0.1)" />
-			<!--Store-->
-			<path d="M 0 55 L 91 5 V -123 L 72 -128 A 1 1 0 0 0 31 -135 L 0 -142 Z" fill="#9c8170" />
-			<path d="M 25 -111 L 76 -106 V -123 L 25 -132 Z" fill="rgba(0,0,0,0.1)" />
-			<!--RIGHT SIDE-->
-			<!--Jail-->
-			<path d="M 287 -7 L 238 -34 V -125 L 287 -153 Z" fill="#648981" />
-			<path d="M 287 -7 V -153 H 356 V -14 Z" fill="rgb(80, 117, 109)" />
-			<!--Saloon-->
-			<path d="M 400 55 L 287 -7 V -113 L 325 -180 L 400 -149 Z" fill="#897d5e" />
-			<path d="M 287 -113 V -119 L 325 -186 L 400 -158 V -149 L 325 -180 Z" fill="#6a423d" />
-			<path d="M 336 -123 V -147 L 317 -138 V -119 Z" fill="#6a423d" />
-		</g>
-	</svg>
-
-	<div id="confettiHolder"></div>
-
-	<!-- Hamburger menu button -->
-	<button id="hamburgerMenuBtn" class="hamburger-menu-button">
-		&#9776;
-		<!-- Hamburger icon -->
-	</button>
-
-	<!-- Menu Overlay -->
-	<div id="menuOverlay" class="menu-overlay"></div>
-
-	<!-- Slide-out Menu -->
-	<div id="slideOutMenu" class="slide-out-menu">
-		<div class="menu-header">
-			<h2>Your Trophy Case</h2>
-			<button id="closeMenuBtn" class="close-menu-btn">&times;</button>
-		</div>
-		<div id="trophyCaseMedals" class="trophy-case-medals">
-			<!-- Medals will be dynamically loaded here by JavaScript -->
-			<div id="virtualScrollContainer" class="virtual-scroll-container"></div>
-		</div>
-		<div class="badge-container">
-			<div id="currentStreakBadge" class="badge" title="Current number of days in a row you've been able to collect the daily badge">
-				<div class="badge-label">Current Streak</div>
-				<div class="badge-value">
-					<span id="currentStreakValue">0</span>
-					<span class="badge-icon">&#128293;</span> <!-- Fire emoji for current streak -->
+				<div id="longestStreakBadge" class="badge longest-streak"
+					title="Longest number of days in a row you were able to collect the daily badge">
+					<div class="badge-label">Longest Streak</div>
+					<div class="badge-value">
+						<span id="longestStreakValue">0</span>
+						<span class="badge-icon">&#127942;</span> <!-- Trophy emoji for longest streak -->
+					</div>
 				</div>
 			</div>
-
-			<div id="longestStreakBadge" class="badge longest-streak" title="Longest number of days in a row you were able to collect the daily badge">
-				<div class="badge-label">Longest Streak</div>
-				<div class="badge-value">
-					<span id="longestStreakValue">0</span>
-					<span class="badge-icon">&#127942;</span> <!-- Trophy emoji for longest streak -->
-				</div>
-			</div>
+			<button id="instructions">How to Play</button>
 		</div>
-		<button id="instructions">How to Play</button>
 	</div>
-</div>
-<!-- partial -->
-  <script src='https://cdn.jsdelivr.net/gh/leimapapa/vectorfetti/vectorfettiexperimental.js'></script>
-<script src='https://cdn.jsdelivr.net/gh/leimapapa/SVG-Countdown/svgcountdown.min.js'></script><script  src="./script.js"></script>
+	<!-- partial -->
+	<script src='https://cdn.jsdelivr.net/gh/leimapapa/vectorfetti/vectorfettiexperimental.js'></script>
+	<script src='https://cdn.jsdelivr.net/gh/leimapapa/SVG-Countdown/svgcountdown.min.js'></script>
+	<script src="./script.js"></script>
 
 </body>
+
 </html>

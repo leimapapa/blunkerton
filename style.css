@@ -75,15 +75,14 @@ h4 {
 	padding: 10px;
 	display: none;
 	z-index: 200;
+	text-align: center;
 }
 #sleepOff {
-	position: relative;
-	left: 50%;
-	transform: translate(-50%);
 	width: 80%;
+	max-width: 300px;
 	text-align: center;
 	padding: 20px;
-	font-family: "Roboto", sans-serif;
+	font-family: "Smokum", cursive;
 	font-weight: bold;
 	margin-top: 10px;
 	cursor: pointer;
@@ -94,7 +93,9 @@ h4 {
 	font-size: 2em;
 }
 #sleepOff:hover {
-	opacity: 0.8;
+	transform: translateY(-2px);
+	box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.6);
+	border: 2px solid #52b2cf;
 }
 #game {
 	width: 100%;
@@ -137,6 +138,7 @@ h4 {
 	left: 50%;
 	transform: translate(-50%);
 	width: 70%;
+	font-family: "Smokum", cursive;
 }
 #selector > #prompt {
 	position: absolute;
@@ -159,6 +161,15 @@ h4 {
 	cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewbox='0 0 28 28' transform='translate(0 0)' height='28' width='28'%3E%3Cg stroke='%23fff' stroke-width='5' filter='drop-shadow(rgba(0,0,0,0.5) 0px 0px 1px)'%3E%3Cg id='target' fill='none'%3E%3Ccircle cx='14' cy='14' r='11' /%3E%3Cpath d='M14 2v8M2 14h8M26 14 h-8M14 26v-8' /%3E%3C/g%3E%3C/g%3E%3Cuse href='%23target' stroke='%23666' stroke-width='3' /%3E%3C/svg%3E")
 			14 14,
 		auto;
+}
+.shape-inner {
+	height: 100%;
+	width: 100%;
+	background: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
 }
 .shape:hover {
 	border: 3px dashed rgba(0, 0, 0, 0.5);
@@ -326,9 +337,9 @@ button.shape.selected {
 	z-index: 1000;
 	opacity: 1;
 	visibility: visible;
-	display: block;
 	transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 	font-family: "Smokum", cursive;
+	display: flex;
 }
 #instructionsModal p {
 	font-size: 300%;
@@ -389,11 +400,6 @@ button.shape.selected {
 	background-color: #8b4513;
 	transform: translateY(-2px);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-#startButton {
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%);
 }
 
 h1.wanted {
@@ -494,12 +500,13 @@ h1.wanted {
 	position: fixed;
 	bottom: 1rem;
 	right: 1rem;
-	background-color: #300;
+	background-color: rgba(60,0,0,0.8);
 	color: white;
 	border: none;
 	padding: 0.75rem 1rem;
 	border-radius: 0.25rem;
 	font-size: 1.5rem;
+	font-family: 'Smokum', cursive;
 	cursor: pointer;
 	z-index: 1001; /* Above menu overlay */
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -746,6 +753,8 @@ h1.wanted {
 .instructions-container {
 	text-align: center;
 	height: 80%;
+	position: relative;
+	overflow-y: auto;
 	max-height: 400px;
 }
 
@@ -804,13 +813,20 @@ h1.wanted {
 }
 
 #instructions {
+	position: flex;
 	width: calc(100% - 40px);
 	margin: 20px 0px 0px 20px;
+/* 	width: 80%; */
 	background: none;
-	border: 2px solid #d2691e;
+	border: 2px solid #5a2d0a;
 	border-radius: 5px;
 	color: #fff;
 	cursor: pointer;
 	font-family: "Smokum", cursive;
 	font-size: 250%;
+}
+#instructions:hover {
+	transform: translateY(-2px);
+	box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.6);
+	border: 2px solid #d2691e;
 }
