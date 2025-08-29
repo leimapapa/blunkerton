@@ -674,6 +674,10 @@ function selectTieredRandomItemsSeeded(originalArray, totalToSelect, seed, drawT
     return finalSelection;
 }
 
+function isChristmas() {
+  const today = new Date();
+  return today.getMonth() === 11 && today.getDate() === 25;
+}
 
 // get a random array item
 function getRandomItemFromArray(arr) {
@@ -810,9 +814,10 @@ function createCacti(totalOutlaws) {
 
 	// Finally, loop through the sorted array and append the elements
 	cactiData.forEach((cactus) => {
-		document.querySelector(".gameBoard").appendChild(cactus.shadow);
-		document.querySelector(".gameBoard").appendChild(cactus.cactus);
-		document.querySelector(".gameBoard").appendChild(cactus.needles);
+		const gb = document.querySelector(".gameBoard");
+		gb.appendChild(cactus.shadow);
+		gb.appendChild(cactus.cactus);
+		gb.appendChild(cactus.needles);
 	});
 }
 
@@ -882,7 +887,7 @@ function constructBaddies() {
 			o.name
 		}" data-drawtimems="${o.drawTimeMs}" data-levels="${
 			o.levels
-		}" data-gridsize="${o.gridSize}">
+		}" data-gridsize="${o.gridSize}" data-gamecolor="${o.shirtColor}">
 		<defs>
 			<mask id="holeMask${index}">
 				<rect width="100%" height="100%" fill="#fff" />
@@ -1034,6 +1039,8 @@ ${o.callToAction}
 				<circle class="skin" cx="70" cy="52" r="4" fill="${
 					o.skinColor
 				}"${skinTone} stroke="#000"></circle>
+				${isChristmas() ? `<path d="M 62 24 a 9 8 0 0 0 -29 4 l 2 0 q 1 -2 2 -2 h 25 z" stroke="#000" stroke-width="1" fill="red" />
+	<path stroke="#000" stroke-width="1" fill="#fff" d="M 37 26 c 0 1 0 2 1 2 q 12 -2 24 0 c 1 0 1 -1 1 -2 c 0 -1 0 -1.75 -1 -2 q -12 -3 -24 0 c -1 0.25 -1 1 -1 2 z M 34 26 a 1 1 0 0 0 0 7 a 1 1 0 0 0 0 -7 z" />` : ''}
 			</g>
 			
 			<g class="nameSign" transform="scale(1 0)">
@@ -1297,162 +1304,12 @@ function closeWinModal() {
 	}
 }
 
-// create a game piece
-function createShape(shape, color, colorNum) {
-	const element = document.createElement("button");
-	element.className = `shape ${shape} color${colorNum}`;
-	element.style.background = color;
-	const innerClickableSquare = document.createElement("div");
-	innerClickableSquare.className = 'shape-inner';
-	element.appendChild(innerClickableSquare);
-	return element;
-}
-
-// create a grid
-function generateGrid(num = 4) {
-	// clear it out
-	grid.innerHTML = "";
-
-	// set the grid layout css
-	document.querySelector(
-		"#grid"
-	).style.gridTemplateColumns = `repeat(${num}, 1fr)`;
-	// populate the grid
-	for (let i = 0; i < Math.floor(num * num); i++) {
-		const shape = getRandomItemFromArray(shapeTypes);
-		const color = getRandomItemFromArray(colorTypes);
-		const shapeElement = createShape(shape, color, colorTypes.indexOf(color));
-		shapeElement.style.height = `${320 / num}px`;
-		shapeElement.style.width = `${320 / num}px`;
-		grid.appendChild(shapeElement);
-	}
-}
-
-function svgProgressBar(barCol="red", timeMs=5000, callback) {
-	const svgNS = "http://www.w3.org/2000/svg";
-	const svg = document.createElementNS(svgNS, "svg");
-	svg.setAttribute("viewBox", "0 0 10 100");
-	  svg.id = crypto.randomUUID()
-	const path = document.createElementNS(svgNS, "path");
-	path.setAttribute("d", "M5 100v0");
-	path.setAttribute("stroke", barCol);
-	path.setAttribute("stroke-width", "10");
-	path.setAttribute("fill", "none");
-	const animate = document.createElementNS(svgNS, "animate");
-	animate.setAttribute("attributeName", "d");
-	animate.setAttribute("values", "M5 100v0; M5 100v-100");
-	animate.setAttribute("dur", `${timeMs}ms`);
-	animate.setAttribute("begin", "0s");
-	animate.setAttribute("repeatCount", "1");
-	animate.setAttribute("fill", "freeze");
-	path.appendChild(animate);
-	svg.appendChild(path);
-	animate.addEventListener("endEvent", callback);
-	return svg;
-  }
-function heroProgress(percenctComplete) {
-	const svgNS = "http://www.w3.org/2000/svg";
-	const svg = document.createElementNS(svgNS, "svg");
-	svg.setAttribute("viewBox", "0 0 10 100");
-	svg.id = crypto.randomUUID();
-	const path = document.createElementNS(svgNS, "path");
-	path.setAttribute("d", "M5 100v0");
-	path.setAttribute("stroke", barCol);
-	path.setAttribute("stroke-width", "10");
-	path.setAttribute("fill", "none");
-	const animate = document.createElementNS(svgNS, "animate");
-	animate.setAttribute("attributeName", "d");
-	animate.setAttribute("values", "M5 100v0; M5 100v-100");
-	animate.setAttribute("dur", `${timeMs}ms`);
-	animate.setAttribute("begin", "0s");
-	animate.setAttribute("repeatCount", "1");
-	animate.setAttribute("fill", "freeze");
-	path.appendChild(animate);
-	svg.appendChild(path);
-	animate.addEventListener("endEvent", callback);
-	return svg;
-}
-
-function setHeroProgress(percentComplete) {
-	const heroProgress = document.getElementById("heroProgress");
-	heroProgress
-		.querySelector("#levelsComplete")
-		.setAttribute("d", `M5 100v-${percentComplete}`);
-}
-
-function cancelEnemyCountdown() {
-	const svgHolder = document.getElementById("enemyProgress");
-	const animateElement = svgHolder.querySelector("animate");
-	// Remove the endEvent event listener
-	animateElement.removeEventListener("endEvent", youDoneLost);
-	// Clear the SVG content inside the span
-	svgHolder.innerHTML = "";
-}
 
 function youDoneLost() {
 	youLose(currentBadGuy);
 }
-function makeSelection() {
-	let randCol = randInt(0, 3);
-	targetShape = shapeTypes[randInt(0, 1)];
-	targetColor = colorTypes[randCol];
-	targetColorClass = `color${colorTypes.indexOf(colorTypes[randCol])}`;
-	selector = selectorTypes[randInt(0, 1)];
-	total = 0;
-	correctAnswers = 0;
 
-	if (selector == "SHAPE") {
-		knob.setAttribute(
-			"transform",
-			"translate(50, 60) rotate(-35) translate(-50, -60)"
-		);
-	} else {
-		knob.setAttribute(
-			"transform",
-			"translate(50, 60) rotate(35) translate(-50, -60)"
-		);
-	}
-	let bgCol = ``;
-	if (selector === "COLOR") {
-		prompt.innerHTML = ``;
-		document.getElementById("knobColor").setAttribute("fill", targetColor);
-	} else {
-		prompt.innerHTML = `<span class="s${targetShape}"${bgCol}></span>`;
-		document.getElementById("knobColor").setAttribute("fill", "none");
-	}
 
-	const shapes = Array.from(document.querySelectorAll(".shape"));
-	shapes.forEach((shape) => {
-		shape.classList.remove("selected");
-		shape.addEventListener("click", handleShapeClick);
-	});
-	message.textContent = "";
-}
-
-function initialStart(drawTimeMs, badGuyWhoBeatYou, gridSize) {
-	startGame(gridSize);
-
-	// your progress bar: TODO: refactor to be an svg element
-	setHeroProgress(0);
-	document.querySelector("#enemyProgress").innerHTML = "";
-	document
-		.querySelector("#enemyProgress")
-		.appendChild(svgProgressBar("red", drawTimeMs, youDoneLost));
-
-	document.querySelector("#enemyCountDown").innerHTML = "";
-	initCountdown(document.querySelector("#enemyCountDown"), {
-		day: 0, //adds a day's worth of seconds to the total seconds
-		hour: 0, //adds an hour's worth of seconds to the total seconds
-		min: 0, //adds 60 seconds to the total seconds
-		sec: drawTimeMs / 1000, //seconds to add to the total seconds
-		color: "#fff", //color of the numbers
-		showMs: false, //whether or not to show the milliseconds
-		glow: false, //whether or not to add a blur shadow behind the clock
-		goldOutline: false, //whether or not to add the fancy gold outline
-		font: "Roboto, sans-serif", //default font
-		fontWeight: 600 //default number thickness
-	});
-}
 
 function youLose(badGuyWhoBeatYou) {
 	const lossScreen = document.querySelector("#lossScreen");
@@ -1464,104 +1321,12 @@ function youLose(badGuyWhoBeatYou) {
 	const outlawFullName = document.getElementById("outlawFullName").textContent = `${firstName} ${lastName}`;
 	const outlawFirstName = document.getElementById("outlawFirstName").textContent = lastName;
 	undefeatedBadGuy = badGuyWhoBeatYou;
-	document.getElementById("defeatedBadGuy").remove();
-}
-
-function startGame(gridSize) {
-	let validGrid = false;
-	while (!validGrid) {
-		generateGrid(gridSize);
-		makeSelection();
-
-		total = getTotal();
-
-		if (total > 0) {
-			validGrid = true;
-		}
-	}
-}
-
-// calculate the total
-function getTotal() {
-	let selected = 0;
-	const allShapes = grid.querySelectorAll("button.shape");
-	if (selector === "SHAPE") {
-		for (let i = 0; i < allShapes.length; i++) {
-			if (allShapes[i].classList.contains(targetShape)) {
-				selected++;
-			}
-		}
-	} else if (selector === "COLOR") {
-		for (let i = 0; i < allShapes.length; i++) {
-			if (allShapes[i].classList.contains(targetColorClass)) {
-				selected++;
-			}
-		}
-	}
-	return selected;
-}
-
-function handleShapeClick(e) {
-	this.classList.toggle("selected");
-	let totalLevels = currentBadGuy.dataset.levels;
-	// determine if we're correct
-	if (selector === "SHAPE") {
-		if (e.currentTarget.classList.contains(targetShape)) {
-			// success!
-			correctAnswers++;
-			this.removeEventListener("click", handleShapeClick);
-		} else {
-			resetGame();
-		}
-	} else if (selector === "COLOR") {
-		if (e.currentTarget.classList.contains(targetColorClass)) {
-			// success!
-			correctAnswers++;
-			this.removeEventListener("click", handleShapeClick);
-		} else {
-			resetGame();
-		}
-	}
-
-	if (allFound()) {
-		knob.setAttribute(
-			"transform",
-			"translate(50, 60) rotate(0) translate(-50, -60)"
-		);
-		gameCount++;
-		setHeroProgress((gameCount / totalLevels) * 100);
-
-		if (gameCount >= totalLevels) {
-			// you won!
-			gameCount = 0;
-			cancelEnemyCountdown();
-			makeBadGuyShootable();
-			showWinScreen();
-			// document.querySelector(".instructions").innerHTML = `Clean draw!<br/>Take your shot!`;
-			// add a function to stop the svg enemy animation from running
-			game.style.display = "none";
-			return;
-		}
-		startGame(currentGridSize);
-	}
+	document.getElementById("defeatedBadGuy")?.remove();
 }
 
 function showWinScreen() {
 	document.getElementById("winModal").classList.add("visible");
 	document.getElementById("backToTrailButton2").style.visibility = "hidden";
-}
-
-function allFound() {
-	if (total === correctAnswers) {
-		return true;
-	}
-	return false;
-}
-
-function resetGame() {
-	gameCount = 0;
-	setHeroProgress(0);
-	startGame(currentGridSize);
 }
 
 //Shooting stuff
@@ -1623,18 +1388,426 @@ function bringEmBack() {
 	document.querySelector("#lossScreen").style.display = "none";
 	game.style.display = "none";
 	document.querySelector("#lossScreen").style.opacity = "0";
-	resetGame();
 }
+
+
+
+// This is the entire script block you can drop into your HTML file.
+// It assumes the <div id="sccg-game-modal-wrapper"> block is already present on the page.
+
+/**
+ * A self-contained module for the Shape and Color Matching Game.
+ * This module follows the singleton pattern, managing a single game instance
+ * and allowing multiple buttons to trigger it with different configurations.
+ */
+const gameManager = (() => {
+	let currentOptions = {
+        gridSize: 5,
+        backgroundColor: '#f0f0f0',
+        gameTimeMs: 10000,
+        gameFailCallback: () => console.log('Game over.'),
+        gameWinCallback: () => console.log('Game won!'),
+        levels: 3,
+				currentLevel: 0,
+				firstGame: true
+    };
+    // Game state variables and constants are defined in this scope.
+    // They are private and cannot be accessed from outside this module.
+    let currentGridSize = currentOptions.gridSize;
+    let currentMode = 'color';
+    let targetShape = '';
+    let targetColor = '';
+    let currentLevel = currentOptions.currentLevel;
+    let selectedCount = 0;
+    let totalTargets = 0;
+    let gameActive = false;
+
+    const colors = ['#cd4bf0', '#7653f3', '#51b4f2', '#f3b705'];
+    const shapes = ['circle', 'square'];
+
+    // Element references, assuming the HTML is already on the page.
+    const modalWrapper = document.getElementById('sccg-game-modal-wrapper');
+    const gridContainer = modalWrapper.querySelector('#sccg-gridContainer');
+    const svgCountdown = modalWrapper.querySelector('#sccg-svgCountdown');
+    const targetDisplay = modalWrapper.querySelector('#sccg-targetDisplay');
+    const levelsCompleted = modalWrapper.querySelector('#sccg-levelsCompleted');
+    const messageBox = modalWrapper.querySelector('#sccg-messageBox');
+    const messageBoxBackdrop = modalWrapper.querySelector('#sccg-messageBoxBackdrop');
+    const messageText = modalWrapper.querySelector('#sccg-messageText');
+    const messageBoxCloseBtn = modalWrapper.querySelector('#sccg-messageBoxCloseBtn');
+    const gameHeader = modalWrapper.querySelector('#sccg-gameHeader');
+		let trackedCircle = null; // the final circle whose aimation triggers the loss function
+		let storedAnimation = null; // the final circle aimation triggers the loss function
+    
+    if (!modalWrapper) {
+        console.error("SCCG: Modal wrapper element not found. Ensure the HTML block is in your page.");
+        return {}; // Return empty object if wrapper not found
+    }
+
+    // Utility functions (e.g., isColorBright, getRandomColor, etc.)
+    function isColorBright(color) {
+        let r, g, b;
+        if (color.startsWith("#")) {
+            const hex = color.slice(1);
+            if (hex.length === 3) {
+                r = parseInt(hex[0] + hex[0], 16);
+                g = parseInt(hex[1] + hex[1], 16);
+                b = parseInt(hex[2] + hex[2], 16);
+            } else if (hex.length === 6) {
+                r = parseInt(hex.slice(0, 2), 16);
+                g = parseInt(hex.slice(2, 4), 16);
+                b = parseInt(hex.slice(4, 6), 16);
+            } else {
+                throw new Error("Invalid hex color format");
+            }
+        } else if (color.startsWith("rgb")) {
+            const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+            if (!match) {
+                throw new Error("Invalid rgb color format");
+            }
+            r = parseInt(match[1]);
+            g = parseInt(match[2]);
+            b = parseInt(match[3]);
+        } else {
+            const tempElement = document.createElement("div");
+            tempElement.style.color = color;
+            document.body.appendChild(tempElement);
+            const computedColor = window.getComputedStyle(tempElement).color;
+            document.body.removeChild(tempElement);
+            const match = computedColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+            if (!match) {
+                throw new Error("Invalid color format");
+            }
+            r = parseInt(match[1]);
+            g = parseInt(match[2]);
+            b = parseInt(match[3]);
+        }
+        const rLinear = r / 255 <= 0.03928 ? r / 255 / 12.92 : Math.pow((r / 255 + 0.055) / 1.055, 2.4);
+        const gLinear = g / 255 <= 0.03928 ? g / 255 / 12.92 : Math.pow((g / 255 + 0.055) / 1.055, 2.4);
+        const bLinear = b / 255 <= 0.03928 ? b / 255 / 12.92 : Math.pow((b / 255 + 0.055) / 1.055, 2.4);
+        const luminance = 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+        return luminance > 0.5;
+    }
+    
+    function getRandomColor() {
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function getRandomShape() {
+        return shapes[Math.floor(Math.random() * shapes.length)];
+    }
+
+    function showModal() {
+        modalWrapper.classList.add('sccg-modal-active');
+        updateLayout();
+    }
+
+    function hideModal() {
+			modalWrapper.classList.remove('sccg-modal-active');
+			gameActive = false;
+			// Clean up countdown listener if it exists
+			storedAnimation?.cancel();
+			trackedCircle = null; // the final circle whose aimation triggers the loss function
+			storedAnimation = null; // the final circle aimation triggers the loss function
+    }
+    
+    function updateLayout() {
+        const headerHeight = gameHeader.offsetHeight;
+        modalWrapper.style.paddingTop = `${headerHeight + 10}px`;
+        svgCountdown.style.paddingTop = `${headerHeight}px`;
+        gridContainer.style.top = `${headerHeight + 10}px`;
+        svgCountdown.style.top = `${headerHeight + 0}px`;
+    }
+
+    function initGame() {
+        gameActive = false;
+        selectedCount = 0;
+        totalTargets = 0;
+        gridContainer.innerHTML = '';
+        
+        currentMode = Math.random() < 0.5 ? 'color' : 'shape';
+        if (currentMode === 'shape') {
+            targetShape = getRandomShape();
+            targetColor = '';
+        } else {
+            targetColor = getRandomColor();
+            targetShape = '';
+        }
+        
+        populateGrid(currentGridSize);
+        updateGameStatus();
+        gameActive = true;
+			if (currentOptions.firstGame) {
+        levelsCompleted.innerHTML = '';
+				
+				levelsCompleted.setAttribute('viewBox', `0 0 ${currentOptions.levels * 100} 100`);
+        for (let i = 0; i < currentOptions.levels; i++) {
+            levelsCompleted.innerHTML += `<clipPath id="level${i}Clip">
+                <path id="level${i}" d="M${50 + i * 100} 5l40 40 l-40 40l-40 -40z"/>
+            </clipPath>
+            <g transform="rotate(180 ${50 + i * 100} 45)">
+                <rect fill="#ccc" class="sccg-level" height="0" width="100" x="${i * 100}" y="0" clip-path="url(#level${i}Clip)"/>
+            </g>
+            <use class="unfilledLevel" href="#level${i}" fill="none" stroke="#ccc" stroke-width="5" stroke-linejoin="round"/>`;
+        }
+        
+        
+         createCountdownSVG();
+			}
+    }
+    
+    function populateGrid(n) {
+        modalWrapper.style.setProperty('--sccg-grid-size', n);
+        let tempTotalTargets = 0;
+        for (let i = 0; i < n * n; i++) {
+            const button = document.createElement('button');
+            button.classList.add('sccg-grid-item');
+            const shapeDiv = document.createElement('div');
+            const randomShape = getRandomShape();
+            const randomColor = getRandomColor();
+            shapeDiv.classList.add('sccg-shape', `sccg-${randomShape}`);
+            shapeDiv.style.backgroundColor = randomColor;
+            shapeDiv.dataset.shape = randomShape;
+            shapeDiv.dataset.color = randomColor;
+            button.appendChild(shapeDiv);
+            
+            button.addEventListener('click', () => handleButtonClick(button, shapeDiv));
+            
+            gridContainer.appendChild(button);
+            if (currentMode === 'shape' && randomShape === targetShape) {
+                tempTotalTargets++;
+            } else if (currentMode === 'color' && randomColor === targetColor) {
+                tempTotalTargets++;
+            }
+        }
+        totalTargets = tempTotalTargets;
+        if (totalTargets === 0 && n > 0) {
+            initGame();
+        }
+    }
+
+	
+	function resetAnimation(elt) {
+		// Remove the animation class
+		elt.classList.remove('countdown-circle');
+
+		// Force a reflow by accessing a property that triggers it
+		void elt.offsetWidth;
+
+		// Re-add the animation class to restart it
+		// elt.classList.add('countdown-circle');
+	}
+    function createCountdownSVG(options = {}) {
+			svgCountdown.innerHTML = '';
+			// Clean up the previous animation's onfinish handler
+			if (storedAnimation) {
+					storedAnimation.onfinish = null;
+			}
+			const defaults = {
+				timeMs: currentOptions.gameTimeMs,
+				targetElement: document.querySelector('#sccg-svgCountdown'),
+				callback: currentOptions.gameFailCallback
+			};
+			const g = {
+				...defaults,
+				...options
+			};
+			const brightOffset = isColorBright(currentOptions.backgroundColor) ? -40 : 40;
+			// Create the SVG element
+			const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			svg.style.position = 'absolute';
+			svg.style.top = '0';
+			svg.style.bottom = '0';
+			svg.style.left = '0';
+			svg.style.right = '0';
+			svg.style.margin = 'auto';
+			svg.setAttribute("viewBox", "0 0 100 100");
+			svg.setAttribute("width", "100%");
+			svg.setAttribute("height", "100%");
+			svg.setAttribute("preserveAspectRatio", "none");
+			// Path 1
+			const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+			path1.setAttribute("d", "M 50 99 h -49 v -98 h 49");
+			path1.setAttribute("stroke", currentOptions.backgroundColor);
+			path1.setAttribute("stroke-width", "2");
+			path1.setAttribute("fill", "none");
+			path1.setAttribute("filter", `brightness(${100 + brightOffset}%)`);
+			path1.setAttribute("stroke-linecap", "round");
+			path1.setAttribute("stroke-linejoin", "round");
+			path1.setAttribute("stroke-dasharray", "196");
+			path1.setAttribute("stroke-dashoffset", "0");
+			const keyframesPath = [
+				{ strokeDashoffset: 0 }, // 0% or 'from' state
+				{ strokeDashoffset: 196 } // 100% or 'to' state
+			];
+			const timingOptionsPath = {
+				duration: Number(currentOptions.gameTimeMs),
+				iterations: 1, // 1
+				fill: 'forwards' // Keep the final state after animation
+			};
+			const animationPath = path1.animate(keyframesPath, timingOptionsPath);
+			svg.appendChild(path1);
+			// Path 2
+			const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+			path2.setAttribute("d", "M 50 99 h 49 v -98 h -49");
+			path2.setAttribute("stroke", currentOptions.backgroundColor);
+			path2.setAttribute("stroke-width", "2");
+			path2.setAttribute("fill", "none");
+			path2.setAttribute("filter", `brightness(${100 + brightOffset}%)`);
+			path2.setAttribute("stroke-linecap", "round");
+			path2.setAttribute("stroke-linejoin", "round");
+			path2.setAttribute("stroke-dasharray", "196");
+			path2.setAttribute("stroke-dashoffset", "0");
+			const animationPath2 = path2.animate(keyframesPath, timingOptionsPath);
+			svg.appendChild(path2);
+			// Circle
+			const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+			circle.setAttribute("cx", "50");
+			circle.setAttribute("cy", "99");
+			circle.setAttribute("r", "1");
+			circle.setAttribute("fill", currentOptions.backgroundColor);
+			circle.setAttribute("filter", `brightness(${100 + (brightOffset * -0.5)}%)`);
+			// circle.classList.add('countdown-circle');
+			circle.classList.add('gotShotCircle');
+			// circle.style.animationDelay = `${g.timeMs}ms`;
+			const keyframes = [
+				{ r: 1 }, // 0% or 'from' state
+				{ r: 200 } // 100% or 'to' state
+			];
+			const timingOptions = {
+				delay: Number(g.timeMs),
+				duration: 200, // 2 seconds
+				iterations: 1, // 1
+				easing: 'ease-out',
+				fill: 'forwards' // Keep the final state after animation
+			};
+			const animation = circle.animate(keyframes, timingOptions);
+
+			animation.onfinish = currentOptions.gameFailCallback;
+			
+			storedAnimation = animation;
+			
+			currentOptions.firstGame = false;
+
+			trackedCircle = circle;
+			svg.appendChild(circle);
+
+			svgCountdown.appendChild(svg);
+			updateLayout();
+    }
+    
+    function handleButtonClick(button, shapeDiv) {
+        if (!gameActive || button.classList.contains('sccg-selected')) return;
+        const clickedShape = shapeDiv.dataset.shape;
+        const clickedColor = shapeDiv.dataset.color;
+        let isCorrect = false;
+        
+        if (currentMode === 'shape' && clickedShape === targetShape) {
+            isCorrect = true;
+        } else if (currentMode === 'color' && clickedColor === targetColor) {
+            isCorrect = true;
+        }
+        
+        if (isCorrect) {
+            button.classList.add('sccg-selected');
+            selectedCount++;
+            levelsCompleted.querySelectorAll('.sccg-level')[currentOptions.currentLevel].setAttribute('height', (selectedCount / totalTargets) * 90);
+            if (selectedCount === totalTargets) {
+                currentOptions.currentLevel++;
+                if (currentOptions.currentLevel >= currentOptions.levels) {
+                    currentOptions.gameWinCallback();
+                } else {
+                    initGame();
+                }
+            }
+        } else {
+            button.classList.add('sccg-error');
+            setTimeout(() => {
+                button.classList.remove('sccg-error');
+            }, 500);
+        }
+    }
+    
+    function updateGameStatus() {
+        targetDisplay.style.borderRadius = '0px';
+        targetDisplay.style.border = '';
+        targetDisplay.style.width = '30px';
+        targetDisplay.style.height = '30px';
+        
+        if (currentMode === 'shape') {
+            targetDisplay.style.backgroundColor = '';
+            targetDisplay.style.border = '2px solid #000';
+            if (targetShape === 'circle') {
+                targetDisplay.style.borderRadius = '50%';
+            }
+        } else {
+            targetDisplay.textContent = '';
+            targetDisplay.style.borderRadius = '30%';
+            targetDisplay.style.backgroundColor = targetColor;
+        }
+    }
+
+    window.addEventListener('resize', updateLayout);
+
+    // The public API
+    return {
+        /**
+         * Starts a new game with the given options.
+         * This is the only function you need to call from your buttons.
+         * @param {object} options - The game configuration.
+         */
+    startGame: (options) => {
+        // This is the correct place to set and merge options.
+        currentOptions = {
+            gridSize: 5,
+            backgroundColor: '#f0f0f0',
+            gameTimeMs: 10000,
+            gameFailCallback: () => console.log('Game over.'),
+            gameWinCallback: () => console.log('Game won!'),
+            levels: 3,
+						currentLevel: 0,
+						firstGame: true,
+            ...options
+        };
+        
+        currentGridSize = currentOptions.gridSize;
+        modalWrapper.style.backgroundColor = currentOptions.backgroundColor;
+        
+        showModal();
+        initGame();
+    },
+        hideModal: hideModal
+    };
+})();
+
 
 // show the game board, populate it and hide the duel button
 function startDuel(badGuyElement) {
 	currentBadGuy = badGuyElement;
 	const drawTimeMs = badGuyElement.dataset.drawtimems;
+	const gameColor = badGuyElement.dataset.gamecolor;
+	const levels = badGuyElement.dataset.levels;
 	currentGridSize = badGuyElement.dataset.gridsize;
-	// show game board
-	game.style.display = "block";
 
-	initialStart(drawTimeMs, badGuyElement, currentGridSize);
+	gameManager.startGame({
+        gridSize: currentGridSize,
+        backgroundColor: gameColor,
+        gameTimeMs: drawTimeMs,
+				currentLevel: 0,
+				levels: levels,
+				firstGame: true,
+        gameFailCallback: () => {
+            gameManager.hideModal();
+            youDoneLost(); // Your external function
+            console.log('FAIL!');
+        },
+        gameWinCallback: () => {
+            gameManager.hideModal();
+            makeBadGuyShootable(); // Your external function
+            showWinScreen(); // Your external function
+            console.log('win!');
+        }
+    });
 }
 
 function makeBadGuyShootable() {
