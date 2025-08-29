@@ -162,7 +162,7 @@ h4 {
 			14 14,
 		auto;
 }
-.shape-inner {
+.shaape-inner {
 	height: 100%;
 	width: 100%;
 	background: none;
@@ -171,7 +171,7 @@ h4 {
 	left: 50%;
 	transform: translate(-50%,-50%);
 }
-.shape:hover {
+.shaape:hover {
 	border: 3px dashed rgba(0, 0, 0, 0.5);
 }
 .shape.circle {
