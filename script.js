@@ -2119,7 +2119,8 @@ class VisitTracker {
 		// Safari detection function
 		function isSafari() {
 			const ua = navigator.userAgent;
-			return /Safari/.test(ua) && !/Chrome/.test(ua) && !/Chromium/.test(ua);
+			return false;
+			//return /Safari/.test(ua) && !/Chrome/.test(ua) && !/Chromium/.test(ua);
 		}
 
 		// Function to clamp color matrix values for Safari
