@@ -1669,12 +1669,13 @@ const gameManager = (() => {
 		const brightOffset = isColorBright(currentOptions.backgroundColor) ? -40 : 40;
 		// Create the SVG element
 		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+		svg.setAttribute("viewBox", "0 0 100 100");
 		svg.style.position = "absolute";
 		svg.style.display = "block";
 		svg.style.top = "50%";
 		svg.style.left = "50%";
 		svg.style.transform = "translate(-50%, -50%)";
-		svg.setAttribute("viewBox", "0 0 100 100");
 		svg.style.width = "100%";
 		svg.style.height = "100%";
 		svg.style.userSelect = "none";
