@@ -246,7 +246,8 @@ const outlawsData = [
 		shirtColor: "#940006",
 		hatColor: "firebrick",
 		pantsColor: '#000000',
-		beard: true
+		beard: true,
+		scar2: true
 	},
 	{
 		name: "Slick Slim",
