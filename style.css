@@ -134,10 +134,6 @@ h4 {
 	padding-top: 20px;
 }
 #selector {
-	position: relative;
-	left: 50%;
-	transform: translate(-50%);
-	width: 70%;
 	font-family: "Smokum", cursive;
 }
 #selector > #prompt {
@@ -169,7 +165,7 @@ h4 {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%,-50%);
+	transform: translate(-50%, -50%);
 }
 .shaape:hover {
 	border: 3px dashed rgba(0, 0, 0, 0.5);
@@ -500,13 +496,13 @@ h1.wanted {
 	position: fixed;
 	bottom: 1rem;
 	right: 1rem;
-	background-color: rgba(60,0,0,0.8);
+	background-color: rgba(60, 0, 0, 0.8);
 	color: white;
 	border: none;
 	padding: 0.75rem 1rem;
 	border-radius: 0.25rem;
 	font-size: 1.5rem;
-	font-family: 'Smokum', cursive;
+	font-family: "Smokum", cursive;
 	cursor: pointer;
 	z-index: 1001; /* Above menu overlay */
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -790,7 +786,7 @@ h1.wanted {
 
 .svg-container {
 	width: 120px;
-	height: 60px;
+	height: 85px;
 	background: #8b4513;
 	border: 2px solid #654321;
 	border-radius: 50%;
@@ -816,7 +812,7 @@ h1.wanted {
 	position: flex;
 	width: calc(100% - 40px);
 	margin: 20px 0px 0px 20px;
-/* 	width: 80%; */
+	/* 	width: 80%; */
 	background: none;
 	border: 2px solid #5a2d0a;
 	border-radius: 5px;
