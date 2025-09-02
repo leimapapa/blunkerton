@@ -15,7 +15,6 @@
 
 </head>
 <body>
-<!-- partial:index.partial.html -->
 <div class="pageContent">
 	<!--FILTERS-->
 	<svg xmlns="http://www.w3.org/2000/svg" height="0" width="0">
@@ -34,49 +33,6 @@
 			</filter>
 		</defs>
 	</svg>
-
-	<!--GAMEPLAY-->
-	<div id="game-container">
-		<div id="game">
-			<div id="grid"></div>
-			<div id="selector">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-					<linearGradient id="grad">
-						<stop offset="0%" stop-color="#cd4bf0" />
-						<stop offset="33%" stop-color="#7653f3" />
-						<stop offset="66%" stop-color="#51b4f2" />
-						<stop offset="100%" stop-color="#f3b705" />
-					</linearGradient>
-					<g id="knob" transform="rotate(35 50 60)">
-						<path d="M50 20 l7 13 h-14z" fill="#222" />
-						<circle cx="50" cy="60" r="30" fill="#222" />
-						<circle id="knobColor" cx="50" cy="60" r="27" fill="#333" />
-					</g>
-					<g fill="none" stroke="#000" stroke-width="0.5">
-						<circle cx="6" cy="25" r="2" />
-						<rect x="10" y="23" height="4" width="4" />
-						<circle cx="18" cy="25" r="2" />
-						<rect x="22" y="23" height="4" width="4" />
-					</g>
-					<rect x="75" y="23" height="4" width="20" fill="url(#grad)" />
-					<text x="15" y="15" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#000" font-weight="900" textLength="25" lengthAdjust="spacingAndGlyphs">SHAPE</text>
-					<text x="85" y="15" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#000" font-weight="900" textLength="25" lengthAdjust="spacingAndGlyphs">COLOR</text>
-				</svg>
-				<span id="heroProgress">
-					<svg viewBox="0 0 10 100">
-						<path id="levelsComplete" d="M5 100v0" stroke="forestgreen" stroke-width="10" fill="none">
-						</path>
-					</svg>
-				</span>
-				<span id="enemyProgress">
-					<!--enemy countdown populates here-->
-				</span>
-				<span id="enemyCountDown"></span>
-				<div id="prompt"></div>
-			</div>
-			<div id="message"></div>
-		</div>
-	</div>
 
 	<!--LOSS SCREEN -->
 	<div id="lossScreen">
@@ -207,11 +163,12 @@
 								<rect x="40" y="75" height="20" width="20" fill="#51b4f2" />
 								<rect x="60" y="75" height="20" width="20" fill="#cd4bf0" rx="10" />
 								<rect x="62.5" y="77.5" height="15" width="15" fill="#8b4513" rx="10" />
-								<text x="28" y="25" text-anchor="middle" dominant-baseline="middle" font-size="8" fill="#000" font-weight="900" textLength="15" lengthAdjust="spacingAndGlyphs">find all</text>
-								<text x="72" y="25" text-anchor="middle" dominant-baseline="middle" font-size="8" fill="#000" font-weight="900" textLength="15" lengthAdjust="spacingAndGlyphs">find all</text>
-								<path d="M38 25 h4" stroke="#000" stroke-width="3" />
-								<path d="M62 25 h-4" stroke="#000" stroke-width="3" />
-								<rect x="45" y="20" height="10" width="10" rx="3" fill="#cd4bf0" />
+								<text x="25" y="5" text-anchor="middle" dominant-baseline="middle" font-size="10" fill="#000" font-weight="900" textLength="20" lengthAdjust="spacingAndGlyphs">SHAPE</text>
+								<text x="75" y="5" text-anchor="middle" dominant-baseline="middle" font-size="10" fill="#000" font-weight="900" textLength="20" lengthAdjust="spacingAndGlyphs">COLOR</text>
+
+								<circle cx="50" cy="20" r="10" fill="#000" />
+								<circle cx="50" cy="20" r="8" fill="#cd4bf0" />
+								<path d="M50 6 l3 6h-6z" fill="#000" transform="rotate(35 50 20)" />
 							</svg>
 						</div>
 					</div>
@@ -570,7 +527,7 @@
 			font-weight: 700;
 			color: #8A2BE2;
 			/* Purple tone */
-			margin-top: 0.5rem;
+			margin-top: 0.25rem;
 		}
 
 		/* Grid Container */
@@ -634,11 +591,11 @@
 				auto;
 		}
 
-		.sccg-grid-item:hover:not(.sccg-selected) {
+		.scccg-grid-item:hover:not(.sccg-selected) {
 			transform: scale(1.03);
 		}
 
-		.sccg-grid-item:active:not(.sccg-selected) {
+		.scccg-grid-item:active:not(.sccg-selected) {
 			transform: scale(0.98);
 		}
 
@@ -739,13 +696,14 @@
 		}
 
 		.sccg-pointers {
-			display: inline-block;
-			height: 1.5rem;
+			position: relative;
+			display: block;
+			height: 10rem;
 			width: auto;
 		}
 
 		#sccg-levelsCompleted {
-			display: inline-block;
+			display: block;
 			height: 1.5rem;
 			width: auto;
 		}
@@ -757,11 +715,31 @@
 		<div class="sccg-controls">
 			<!-- 			<button id="sccg-toggleModeBtn">Reset</button> -->
 			<div id="sccg-gameStatus">
-				find all <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="sccg-pointers">
-					<path d="M20 40v20h40v10l20-20 l-20-20v10z" fill="#000" stroke="#000" stroke-width="4" />
-				</svg> <span id="sccg-targetDisplay"></span> <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="sccg-pointers">
-					<path d="M80 40v20h-40v10l-20-20 l20-20v10z" fill="#000" stroke="#000" stroke-width="4" />
-				</svg> find all
+				<div id="selector">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" height="100%" width="100%" class="sccg-pointers">>
+						<linearGradient id="grad">
+							<stop offset="0%" stop-color="#cd4bf0" />
+							<stop offset="33%" stop-color="#7653f3" />
+							<stop offset="66%" stop-color="#51b4f2" />
+							<stop offset="100%" stop-color="#f3b705" />
+						</linearGradient>
+						<g id="knob" transform="translate(50, 60) rotate(0) translate(-50, -60)">
+							<path d="M50 20 l7 13 h-14z" fill="#222" />
+							<circle cx="50" cy="60" r="30" fill="#222" />
+							<circle id="knobColor" cx="50" cy="60" r="27" fill="#333" />
+						</g>
+						<g fill="none" stroke="#000" stroke-width="0.5">
+							<circle cx="6" cy="25" r="2" />
+							<rect x="10" y="23" height="4" width="4" />
+							<circle cx="18" cy="25" r="2" />
+							<rect x="22" y="23" height="4" width="4" />
+						</g>
+						<rect x="75" y="23" height="4" width="20" fill="url(#grad)" />
+						<text x="15" y="15" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#000" font-weight="900" textLength="25" lengthAdjust="spacingAndGlyphs">SHAPE</text>
+						<text x="85" y="15" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="#000" font-weight="900" textLength="25" lengthAdjust="spacingAndGlyphs">COLOR</text>
+					</svg>
+					<div id="prompt"></div>
+				</div>
 			</div>
 		</div>
 		<div id="sccg-scoreDisplay">
@@ -783,8 +761,7 @@
 	</div>
 </div>
 <!-- partial -->
-  <script src='https://cdn.jsdelivr.net/gh/leimapapa/vectorfetti/vectorfettiexperimental.js'></script>
-<script src='https://cdn.jsdelivr.net/gh/leimapapa/SVG-Countdown/svgcountdown.min.js'></script><script  src="./script.js"></script>
+  <script src='https://cdn.jsdelivr.net/gh/leimapapa/vectorfetti/vectorfettiexperimental.js'></script><script  src="./script.js"></script>
 
 </body>
 </html>
