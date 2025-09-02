@@ -1670,11 +1670,10 @@ const gameManager = (() => {
 		// Create the SVG element
 		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 		svg.style.position = "absolute";
-		svg.style.top = "0";
-		svg.style.bottom = "0";
-		svg.style.left = "0";
-		svg.style.right = "0";
-		svg.style.margin = "auto";
+		svg.style.display = "block";
+		svg.style.top = "50%";
+		svg.style.left = "50%";
+		svg.style.transform = "translate(-50%, -50%)";
 		svg.setAttribute("viewBox", "0 0 100 100");
 		svg.style.width = "100%";
 		svg.style.height = "100%";
