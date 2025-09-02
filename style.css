@@ -138,7 +138,7 @@ h4 {
 }
 #selector > #prompt {
 	position: absolute;
-	top: 59%;
+	top: 62%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
