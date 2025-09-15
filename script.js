@@ -1670,14 +1670,21 @@ const gameManager = (() => {
 		// Create the SVG element
 		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 		svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-		svg.setAttribute("viewBox", "0 0 100 100");
+		svg.setAttribute("version", "1.1");
+	    svg.setAttribute("viewBox", "0 0 100 100");
+	    svg.setAttribute("width", "100");
+	    svg.setAttribute("height", "100");
+	    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
 		svg.style.position = "absolute";
 		svg.style.display = "block";
 		svg.style.top = "50%";
 		svg.style.left = "50%";
 		svg.style.transform = "translate(-50%, -50%)";
-		svg.style.width = "100%";
-		svg.style.height = "100%";
+		svg.style.display = "block";
+    	svg.style.height = "calc(90vw + 20px)";
+	    svg.style.width = "calc(90vw + 20px)";
+	    svg.style.maxWidth = "calc(var(--sccg-container-max-width) + 20px)";
+	    svg.style.maxHeight = "calc(var(--sccg-container-max-width) + 20px)";
 		svg.style.userSelect = "none";
 		svg.style.pointerEvents = "none";
 		// Path 1
@@ -1691,6 +1698,7 @@ const gameManager = (() => {
 		path1.setAttribute("stroke-linejoin", "round");
 		path1.setAttribute("stroke-dasharray", "196");
 		path1.setAttribute("stroke-dashoffset", "0");
+		path1.setAttribute("vector-effect", "non-scaling-stroke");
 		const keyframesPath = [
 			{ strokeDashoffset: 0 }, // 0% or 'from' state
 			{ strokeDashoffset: 196 } // 100% or 'to' state
@@ -1713,6 +1721,7 @@ const gameManager = (() => {
 		path2.setAttribute("stroke-linejoin", "round");
 		path2.setAttribute("stroke-dasharray", "196");
 		path2.setAttribute("stroke-dashoffset", "0");
+		path2.setAttribute("vector-effect", "non-scaling-stroke");
 		const animationPath2 = path2.animate(keyframesPath, timingOptionsPath);
 		svg.appendChild(path2);
 		// Circle
@@ -1734,7 +1743,7 @@ const gameManager = (() => {
 		];
 		const timingOptions = {
 			delay: Number(g.timeMs),
-			duration: 200, // 2 seconds
+			duration: 200, // .2 seconds
 			iterations: 1, // 1
 			easing: "ease-out",
 			fill: "forwards" // Keep the final state after animation
