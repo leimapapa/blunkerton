@@ -1672,8 +1672,8 @@ const gameManager = (() => {
 		svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 		svg.setAttribute("version", "1.1");
 	    svg.setAttribute("viewBox", "0 0 100 100");
-	    svg.setAttribute("width", "100");
-	    svg.setAttribute("height", "100");
+	    svg.setAttribute("width", "calc(90vw + 20px)");
+	    svg.setAttribute("height", "calc(90vw + 20px)");
 	    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
 		svg.style.position = "absolute";
 		svg.style.display = "block";
