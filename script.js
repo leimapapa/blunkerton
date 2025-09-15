@@ -1674,7 +1674,6 @@ const gameManager = (() => {
 	    svg.setAttribute("viewBox", "0 0 100 100");
 	    svg.setAttribute("width", "calc(90vw + 20px)");
 	    svg.setAttribute("height", "calc(90vw + 20px)");
-	    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
 		svg.style.position = "absolute";
 		svg.style.display = "block";
 		svg.style.top = "50%";
@@ -1698,7 +1697,6 @@ const gameManager = (() => {
 		path1.setAttribute("stroke-linejoin", "round");
 		path1.setAttribute("stroke-dasharray", "196");
 		path1.setAttribute("stroke-dashoffset", "0");
-		path1.setAttribute("vector-effect", "non-scaling-stroke");
 		const keyframesPath = [
 			{ strokeDashoffset: 0 }, // 0% or 'from' state
 			{ strokeDashoffset: 196 } // 100% or 'to' state
@@ -1721,7 +1719,6 @@ const gameManager = (() => {
 		path2.setAttribute("stroke-linejoin", "round");
 		path2.setAttribute("stroke-dasharray", "196");
 		path2.setAttribute("stroke-dashoffset", "0");
-		path2.setAttribute("vector-effect", "non-scaling-stroke");
 		const animationPath2 = path2.animate(keyframesPath, timingOptionsPath);
 		svg.appendChild(path2);
 		// Circle
