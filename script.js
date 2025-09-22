@@ -1917,8 +1917,16 @@ const gameManager = (() => {
 	}
 
 	// Utility functions (e.g., isColorBright, getRandomColor, etc.)
-	function isColorBright(color) {
+	function getAdjustedColor(color) {
+		// Helper function to convert a single color component to hex
+		function componentToHex(c) {
+			const hex = Math.round(c).toString(16);
+			return hex.length === 1 ? "0" + hex : hex;
+		}
+
 		let r, g, b;
+
+		// Step 1: Parse the input color string to get RGB values.
 		if (color.startsWith("#")) {
 			const hex = color.slice(1);
 			if (hex.length === 3) {
@@ -1941,6 +1949,7 @@ const gameManager = (() => {
 			g = parseInt(match[2]);
 			b = parseInt(match[3]);
 		} else {
+			// Handles named colors like 'red', 'blue', etc.
 			const tempElement = document.createElement("div");
 			tempElement.style.color = color;
 			document.body.appendChild(tempElement);
@@ -1954,20 +1963,66 @@ const gameManager = (() => {
 			g = parseInt(match[2]);
 			b = parseInt(match[3]);
 		}
-		const rLinear =
-			r / 255 <= 0.03928
-				? r / 255 / 12.92
-				: Math.pow((r / 255 + 0.055) / 1.055, 2.4);
-		const gLinear =
-			g / 255 <= 0.03928
-				? g / 255 / 12.92
-				: Math.pow((g / 255 + 0.055) / 1.055, 2.4);
-		const bLinear =
-			b / 255 <= 0.03928
-				? b / 255 / 12.92
-				: Math.pow((b / 255 + 0.055) / 1.055, 2.4);
+
+		// Step 2: Convert RGB to HSL to easily adjust lightness.
+		r /= 255;
+		g /= 255;
+		b /= 255;
+
+		const max = Math.max(r, g, b);
+		const min = Math.min(r, g, b);
+		let h, s, l = (max + min) / 2;
+
+		if (max === min) {
+			h = s = 0; // achromatic
+		} else {
+			const d = max - min;
+			s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+			switch (max) {
+				case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+				case g: h = (b - r) / d + 2; break;
+				case b: h = (r - g) / d + 4; break;
+			}
+			h /= 6;
+		}
+
+		// Step 3: Determine if the color is bright or dark based on luminance.
+		// We'll reuse your original luminance calculation for consistency.
+		const rLinear = r <= 0.03928 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4);
+		const gLinear = g <= 0.03928 ? g / 12.92 : Math.pow((g + 0.055) / 1.055, 2.4);
+		const bLinear = b <= 0.03928 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4);
 		const luminance = 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
-		return luminance > 0.5;
+		const isBright = luminance > 0.5;
+
+		// Step 4: Adjust the lightness (l) component.
+		if (isBright) {
+			l = Math.max(0, l - 0.4); // Darken by 40%
+		} else {
+			l = Math.min(1, l + 0.4); // Lighten by 40%
+		}
+
+		// Step 5: Convert HSL back to RGB.
+		let newR, newG, newB;
+		if (s === 0) {
+			newR = newG = newB = l; // achromatic
+		} else {
+			const hue2rgb = (p, q, t) => {
+				if (t < 0) t += 1;
+				if (t > 1) t -= 1;
+				if (t < 1 / 6) return p + (q - p) * 6 * t;
+				if (t < 1 / 2) return q;
+				if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+				return p;
+			};
+			const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+			const p = 2 * l - q;
+			newR = hue2rgb(p, q, h + 1 / 3);
+			newG = hue2rgb(p, q, h);
+			newB = hue2rgb(p, q, h - 1 / 3);
+		}
+
+		// Step 6: Convert the new RGB values back to a hex string.
+		return "#" + componentToHex(newR * 255) + componentToHex(newG * 255) + componentToHex(newB * 255);
 	}
 
 	function getRandomColor() {
@@ -2098,7 +2153,7 @@ const gameManager = (() => {
 			...defaults,
 			...options
 		};
-		const brightOffset = isColorBright(currentOptions.backgroundColor) ? -40 : 40;
+		const offsetColor = getAdjustedColor(currentOptions.backgroundColor);
 		// Create the SVG element
 		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 		svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
@@ -2121,10 +2176,9 @@ const gameManager = (() => {
 		// Path 1
 		const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
 		path1.setAttribute("d", "M 50 99 h -49 v -98 h 49");
-		path1.setAttribute("stroke", currentOptions.backgroundColor);
+		path1.setAttribute("stroke", offsetColor);
 		path1.setAttribute("stroke-width", "2");
 		path1.setAttribute("fill", "none");
-		path1.setAttribute("filter", `brightness(${100 + brightOffset}%)`);
 		path1.setAttribute("stroke-linecap", "round");
 		path1.setAttribute("stroke-linejoin", "round");
 		path1.setAttribute("stroke-dasharray", "196");
@@ -2143,10 +2197,9 @@ const gameManager = (() => {
 		// Path 2
 		const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
 		path2.setAttribute("d", "M 50 99 h 49 v -98 h -49");
-		path2.setAttribute("stroke", currentOptions.backgroundColor);
+		path2.setAttribute("stroke", offsetColor);
 		path2.setAttribute("stroke-width", "2");
 		path2.setAttribute("fill", "none");
-		path2.setAttribute("filter", `brightness(${100 + brightOffset}%)`);
 		path2.setAttribute("stroke-linecap", "round");
 		path2.setAttribute("stroke-linejoin", "round");
 		path2.setAttribute("stroke-dasharray", "196");
@@ -2161,8 +2214,7 @@ const gameManager = (() => {
 		circle.setAttribute("cx", "50");
 		circle.setAttribute("cy", "99");
 		circle.setAttribute("r", "1");
-		circle.setAttribute("fill", currentOptions.backgroundColor);
-		circle.setAttribute("filter", `brightness(${100 + brightOffset * -0.5}%)`);
+		circle.setAttribute("fill", offsetColor);
 		// circle.classList.add('countdown-circle');
 		circle.classList.add("gotShotCircle");
 		// circle.style.animationDelay = `${g.timeMs}ms`;
