@@ -2139,109 +2139,110 @@ const gameManager = (() => {
 		// elt.classList.add('countdown-circle');
 	}
 	function createCountdownSVG(options = {}) {
-		svgCountdown.innerHTML = "";
-		// Clean up the previous animation's onfinish handler
-		if (storedAnimation) {
-			storedAnimation.onfinish = null;
-		}
-		const defaults = {
-			timeMs: currentOptions.gameTimeMs,
-			targetElement: document.querySelector("#sccg-svgCountdown"),
-			callback: currentOptions.gameFailCallback
-		};
-		const g = {
-			...defaults,
-			...options
-		};
-		const offsetColor = getAdjustedColor(currentOptions.backgroundColor);
-		// Create the SVG element
-		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-		svg.setAttribute("version", "1.1");
+	    svgCountdown.innerHTML = "";
+	    // Clean up the previous animation's onfinish handler
+	    if (storedAnimation) {
+	        storedAnimation.onfinish = null;
+	    }
+	
+	    const defaults = {
+	        timeMs: currentOptions.gameTimeMs,
+	        targetElement: document.querySelector("#sccg-svgCountdown"),
+	        callback: currentOptions.gameFailCallback
+	    };
+	    const g = { ...defaults, ...options };
+	
+	    const offsetColor = getAdjustedColor(currentOptions.backgroundColor);
+	
+	    // Create the SVG element
+	    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+	    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	    svg.setAttribute("viewBox", "0 0 100 100");
-	    svg.setAttribute("width", "calc(90vw + 20px)");
-	    svg.setAttribute("height", "calc(90vw + 20px)");
-		svg.style.position = "absolute";
-		svg.style.display = "block";
-		svg.style.top = "50%";
-		svg.style.left = "50%";
-		svg.style.transform = "translate(-50%, -50%)";
-		svg.style.display = "block";
-    	svg.style.height = "calc(90vw + 20px)";
-	    svg.style.width = "calc(90vw + 20px)";
-	    svg.style.maxWidth = "calc(var(--sccg-container-max-width) + 20px)";
-	    svg.style.maxHeight = "calc(var(--sccg-container-max-width) + 20px)";
-		svg.style.userSelect = "none";
-		svg.style.pointerEvents = "none";
-		// Path 1
-		const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-		path1.setAttribute("d", "M 50 99 h -49 v -98 h 49");
-		path1.setAttribute("stroke", offsetColor);
-		path1.setAttribute("stroke-width", "2");
-		path1.setAttribute("fill", "none");
-		path1.setAttribute("stroke-linecap", "round");
-		path1.setAttribute("stroke-linejoin", "round");
-		path1.setAttribute("stroke-dasharray", "196");
-		path1.setAttribute("stroke-dashoffset", "0");
-		const keyframesPath = [
-			{ strokeDashoffset: 0 }, // 0% or 'from' state
-			{ strokeDashoffset: 196 } // 100% or 'to' state
-		];
-		const timingOptionsPath = {
-			duration: Number(currentOptions.gameTimeMs),
-			iterations: 1, // 1
-			fill: "forwards" // Keep the final state after animation
-		};
-		const animationPath = path1.animate(keyframesPath, timingOptionsPath);
-		svg.appendChild(path1);
-		// Path 2
-		const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-		path2.setAttribute("d", "M 50 99 h 49 v -98 h -49");
-		path2.setAttribute("stroke", offsetColor);
-		path2.setAttribute("stroke-width", "2");
-		path2.setAttribute("fill", "none");
-		path2.setAttribute("stroke-linecap", "round");
-		path2.setAttribute("stroke-linejoin", "round");
-		path2.setAttribute("stroke-dasharray", "196");
-		path2.setAttribute("stroke-dashoffset", "0");
-		const animationPath2 = path2.animate(keyframesPath, timingOptionsPath);
-		svg.appendChild(path2);
-		// Circle
-		const circle = document.createElementNS(
-			"http://www.w3.org/2000/svg",
-			"circle"
-		);
-		circle.setAttribute("cx", "50");
-		circle.setAttribute("cy", "99");
-		circle.setAttribute("r", "1");
-		circle.setAttribute("fill", offsetColor);
-		// circle.classList.add('countdown-circle');
-		circle.classList.add("gotShotCircle");
-		// circle.style.animationDelay = `${g.timeMs}ms`;
-		const keyframes = [
-			{ r: 1 }, // 0% or 'from' state
-			{ r: 200 } // 100% or 'to' state
-		];
-		const timingOptions = {
-			delay: Number(g.timeMs),
-			duration: 200, // .2 seconds
-			iterations: 1, // 1
-			easing: "ease-out",
-			fill: "forwards" // Keep the final state after animation
-		};
-		const animation = circle.animate(keyframes, timingOptions);
-
-		animation.onfinish = currentOptions.gameFailCallback;
-
-		storedAnimation = animation;
-
-		currentOptions.firstGame = false;
-
-		trackedCircle = circle;
-		svg.appendChild(circle);
-
-		svgCountdown.appendChild(svg);
-		updateLayout();
+	    svg.style.position = "absolute";
+	    svg.style.display = "block";
+	    svg.style.top = "50%";
+	    svg.style.left = "50%";
+	    svg.style.transform = "translate(-50%, -50%)";
+	    svg.style.width = "100%";
+	    svg.style.height = "100%";
+	    svg.setAttribute("width", "100%");
+	    svg.setAttribute("height", "100%");
+	    svg.style.userSelect = "none";
+	    svg.style.pointerEvents = "none";
+	
+	    // Path 1
+	    const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+	    path1.setAttribute("id", "countdownPath1");
+	    path1.setAttribute("d", "M 50 99 h -49 v -98 h 49");
+	    path1.setAttribute("stroke", offsetColor);
+	    path1.setAttribute("stroke-width", "2");
+	    path1.setAttribute("fill", "none");
+	    path1.setAttribute("stroke-linecap", "round");
+	    path1.setAttribute("stroke-linejoin", "round");
+	    path1.setAttribute("pathLength", "196");
+	    path1.setAttribute("stroke-dasharray", "196");
+	    path1.setAttribute("stroke-dashoffset", "0");
+	
+	    const animate1 = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+	    animate1.setAttribute("attributeName", "stroke-dashoffset");
+	    animate1.setAttribute("from", "0");
+	    animate1.setAttribute("to", "196");
+	    animate1.setAttribute("dur", `${g.timeMs}ms`);
+	    animate1.setAttribute("begin", "0s");
+	    animate1.setAttribute("repeatCount", "1");
+	    animate1.setAttribute("fill", "freeze");
+	    path1.appendChild(animate1);
+	
+	    // Path 2
+	    const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+	    path2.setAttribute("id", "countdownPath2");
+	    path2.setAttribute("d", "M 50 99 h 49 v -98 h -49");
+	    path2.setAttribute("stroke", offsetColor);
+	    path2.setAttribute("stroke-width", "2");
+	    path2.setAttribute("fill", "none");
+	    path2.setAttribute("stroke-linecap", "round");
+	    path2.setAttribute("stroke-linejoin", "round");
+	    path2.setAttribute("pathLength", "196");
+	    path2.setAttribute("stroke-dasharray", "196");
+	    path2.setAttribute("stroke-dashoffset", "0");
+	
+	    const animate2 = animate1.cloneNode(true);
+	    path2.appendChild(animate2);
+	
+	    // Circle
+	    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+	    circle.setAttribute("cx", "50");
+	    circle.setAttribute("cy", "99");
+	    circle.setAttribute("r", "1");
+	    circle.setAttribute("fill", offsetColor);
+	    circle.classList.add("gotShotCircle");
+	
+	    // Web Animations API for Safari-safe circle animation
+	    const keyframes = [
+	        { r: 1 }, // start
+	        { r: 200 } // end
+	    ];
+	    const timingOptions = {
+	        delay: Number(g.timeMs),
+	        duration: 200,
+	        iterations: 1,
+	        easing: "ease-out",
+	        fill: "forwards"
+	    };
+	    const animation = circle.animate(keyframes, timingOptions);
+	
+	    animation.onfinish = g.callback;
+	
+	    storedAnimation = animation;
+	    currentOptions.firstGame = false;
+	    trackedCircle = circle;
+	
+	    svg.appendChild(path1);
+	    svg.appendChild(path2);
+	    svg.appendChild(circle);
+	
+	    svgCountdown.appendChild(svg);
+	    updateLayout();
 	}
 
 	function handleButtonClick(button, shapeDiv) {
